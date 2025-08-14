@@ -1,13 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.qlbh.qlbhlaptop.model;
 
-/**
- *
- * @author ttien
- */
 public class NhanVien {
+    private String maNV;
+    private String tenNV;
+    private String diaChi;
+    private String dienThoai;
     
+    public NhanVien(String maNV, String tenNV, String diaChi, String dienThoai) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.diaChi = diaChi;
+        this.dienThoai = dienThoai;
+    }
+    
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+
+    public String getTenNV() {
+        return tenNV;
+    }
+
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
+    public String getDienThoai() {
+        return dienThoai;
+    }
+
+    public void setDienThoai(String dienThoai) {
+        this.dienThoai = dienThoai;
+    }
 }
