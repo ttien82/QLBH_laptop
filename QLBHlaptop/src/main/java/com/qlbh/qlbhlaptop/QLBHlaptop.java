@@ -11,6 +11,6 @@ package com.qlbh.qlbhlaptop;
 public class QLBHlaptop {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.print("Test create new branch");
     }
 }
