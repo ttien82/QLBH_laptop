@@ -11,6 +11,7 @@ com\qlbh\qlbhlaptop\model\ChiTietPhieuNhap.class
 com\qlbh\qlbhlaptop\model\SanPham.class
 com\qlbh\qlbhlaptop\model\LoaiSP.class
 com\qlbh\qlbhlaptop\config\DatabaseConnection.class
+com\qlbh\qlbhlaptop\dao\DAOException.class
 com\qlbh\qlbhlaptop\model\DonHang.class
 com\qlbh\qlbhlaptop\model\ChiTietDonHang.class
 com\qlbh\qlbhlaptop\model\PhieuNhap.class

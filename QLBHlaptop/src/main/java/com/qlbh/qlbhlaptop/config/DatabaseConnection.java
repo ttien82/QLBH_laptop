@@ -63,7 +63,7 @@ public class DatabaseConnection {
         Connection conn = getConnection();
         if (conn != null) {
             System.out.println("Test kết nối thành công!");
-            //closeConnection();
+            closeConnection();
         }
     }
 }

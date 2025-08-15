@@ -1,5 +1,7 @@
 package com.qlbh.qlbhlaptop.model;
 
+import java.math.BigDecimal;
+
 public class SanPham {
     private String maSP;
     private String tenSP;
@@ -9,13 +11,16 @@ public class SanPham {
     private String ram;
     private String oCung;
     private String cardManHinh;
-    private double giaBan;
+    private BigDecimal giaBan;
     private int soLuongTon;
     private String hinhAnh;
     
+    public SanPham (){
+    }
+    
     public SanPham(String maSP, String tenSP, String maNCC, String maLoaiSP,
                    String cpu, String ram, String oCung, String cardManHinh,
-                   double giaBan, int soLuongTon, String hinhAnh) {
+                   BigDecimal giaBan, int soLuongTon, String hinhAnh) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.maNCC = maNCC;
@@ -93,11 +98,11 @@ public class SanPham {
         this.cardManHinh = cardManHinh;
     }
 
-    public double getGiaBan() {
+    public BigDecimal getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(double giaBan) {
+    public void setGiaBan(BigDecimal giaBan) {
         this.giaBan = giaBan;
     }
 
