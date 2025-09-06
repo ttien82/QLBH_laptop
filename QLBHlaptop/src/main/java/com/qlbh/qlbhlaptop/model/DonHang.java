@@ -11,6 +11,10 @@ public class DonHang {
     private BigDecimal tongTien;
     private String trangThai;
     
+    public DonHang(){
+        
+    }
+    
     public DonHang(String maDH, String maKH, String maNV, Date ngayLap, BigDecimal tongTien, String trangThai) {
         this.maDH = maDH;
         this.maKH = maKH;
@@ -66,5 +70,17 @@ public class DonHang {
 
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
+    }
+    
+    @Override
+    public String toString() {
+        return "DonHang{" +
+                "maDH='" + maDH + '\'' +
+                ", maKH='" + maKH + '\'' +
+                ", maNV='" + maNV + '\'' +
+                ", ngayLap=" + ngayLap +
+                ", tongTien=" + tongTien +
+                ", trangThai='" + trangThai + '\'' +
+                '}';
     }
 }

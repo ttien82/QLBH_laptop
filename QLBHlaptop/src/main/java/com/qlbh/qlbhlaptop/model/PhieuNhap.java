@@ -1,4 +1,4 @@
-package com.qlbh.qlbhlaptop.model;
+    package com.qlbh.qlbhlaptop.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,6 +9,10 @@ public class PhieuNhap {
     private String maNV;
     private Date ngayNhap;
     private BigDecimal tongTien;
+    
+    public PhieuNhap(){
+    
+    }
     
     public PhieuNhap(String maPN, String maNCC, String maNV, Date ngayNhap, BigDecimal tongTien) {
         this.maPN = maPN;
@@ -56,5 +60,16 @@ public class PhieuNhap {
 
     public void setTongTien(BigDecimal tongTien) {
         this.tongTien = tongTien;
+    }
+    
+    @Override
+    public String toString() {
+        return "PhieuNhap{" +
+                "maPN='" + maPN + '\'' +
+                ", maNCC='" + maNCC + '\'' +
+                ", maNV='" + maNV + '\'' +
+                ", ngayNhap=" + ngayNhap +
+                ", tongTien=" + tongTien +
+                '}';
     }
 }

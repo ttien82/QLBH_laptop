@@ -6,6 +6,10 @@ public class NhaCungCap {
     private String diaChi;
     private String dienThoai;
     
+    public NhaCungCap(){
+    
+    }
+    
     public NhaCungCap(String maNCC, String tenNCC, String diaChi, String dienThoai) {
         
         this.maNCC = maNCC;
@@ -43,5 +47,15 @@ public class NhaCungCap {
 
     public void setDienThoai(String dienThoai) {
         this.dienThoai = dienThoai;
+    }
+    
+    @Override
+    public String toString() {
+        return "NhaCungCap{" +
+                "maNCC='" + maNCC + '\'' +
+                ", tenNCC='" + tenNCC + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", dienThoai='" + dienThoai + '\'' +
+                '}';
     }
 }

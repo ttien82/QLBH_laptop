@@ -8,6 +8,10 @@ public class ChiTietPhieuNhap {
     private int soLuong;
     private BigDecimal giaNhap;
     
+    public ChiTietPhieuNhap(){
+        
+    }
+    
     public ChiTietPhieuNhap(String maPN, String maSP, int soLuong, BigDecimal giaNhap) {
         this.maPN = maPN;
         this.maSP = maSP;
@@ -45,5 +49,15 @@ public class ChiTietPhieuNhap {
 
     public void setGiaNhap(BigDecimal giaNhap) {
         this.giaNhap = giaNhap;
+    }
+    
+    @Override
+    public String toString() {
+        return "ChiTietPhieuNhap{" +
+                "maPN='" + maPN + '\'' +
+                ", maSP='" + maSP + '\'' +
+                ", soLuong=" + soLuong +
+                ", giaNhap=" + giaNhap +
+                '}';
     }
 }

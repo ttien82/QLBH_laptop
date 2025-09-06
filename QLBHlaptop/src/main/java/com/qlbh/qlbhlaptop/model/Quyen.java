@@ -4,6 +4,10 @@ public class Quyen {
     private String maQuyen;
     private String tenQuyen;
     
+    public Quyen(){
+    
+    }
+    
     public Quyen(String maQuyen, String tenQuyen) {
         this.maQuyen = maQuyen;
         this.tenQuyen = tenQuyen;
@@ -23,5 +27,13 @@ public class Quyen {
 
     public void setTenQuyen(String tenQuyen) {
         this.tenQuyen = tenQuyen;
+    }
+    
+    @Override
+    public String toString() {
+        return "Quyen{" +
+                "maQuyen='" + maQuyen + '\'' +
+                ", tenQuyen='" + tenQuyen + '\'' +
+                '}';
     }
 }

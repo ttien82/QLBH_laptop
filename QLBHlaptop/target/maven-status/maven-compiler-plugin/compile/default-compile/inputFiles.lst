@@ -1,6 +1,7 @@
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\DatabaseConnection.java
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietDonHangDAO.java
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.java
+D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DAOException.java
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DonHangDAO.java
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\KhachHangDAO.java
 D:\java\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\LoaiSPDAO.java

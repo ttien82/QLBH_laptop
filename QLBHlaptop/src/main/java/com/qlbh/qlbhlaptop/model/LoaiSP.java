@@ -4,6 +4,10 @@ public class LoaiSP {
     private String maLoaiSP;
     private String tenLoaiSP;
     
+    public LoaiSP(){
+    
+    }
+    
     public LoaiSP(String maLoaiSP, String tenLoaiSP){
         this.maLoaiSP = maLoaiSP;
         this.tenLoaiSP = tenLoaiSP;
@@ -23,5 +27,13 @@ public class LoaiSP {
 
     public void setTenLoaiSP(String tenLoaiSP) {
         this.tenLoaiSP = tenLoaiSP;
+    }
+    
+    @Override
+    public String toString() {
+        return "LoaiSP{" +
+                "maLoaiSP='" + maLoaiSP + '\'' +
+                ", tenLoai='" +tenLoaiSP + '\'' +
+                '}';
     }
 }

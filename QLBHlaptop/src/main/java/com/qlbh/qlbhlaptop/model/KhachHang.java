@@ -7,6 +7,10 @@ public class KhachHang {
     private String email;
     private String diaChi;
     
+    public KhachHang(){
+    
+    }
+    
     public KhachHang(String maKH, String tenKH, String dienThoai, String email, String diaChi) {
         this.maKH = maKH;
         this.tenKH = tenKH;
@@ -53,5 +57,16 @@ public class KhachHang {
 
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
+    }
+    
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "maKH='" + maKH + '\'' +
+                ", tenKH='" + tenKH + '\'' +
+                ", dienThoai='" + dienThoai + '\'' +
+                ", email='" + email + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                '}';
     }
 }

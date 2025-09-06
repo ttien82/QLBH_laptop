@@ -6,6 +6,10 @@ public class NhanVien {
     private String diaChi;
     private String dienThoai;
     
+    public NhanVien(){
+    
+    }
+    
     public NhanVien(String maNV, String tenNV, String diaChi, String dienThoai) {
         this.maNV = maNV;
         this.tenNV = tenNV;
@@ -43,5 +47,15 @@ public class NhanVien {
 
     public void setDienThoai(String dienThoai) {
         this.dienThoai = dienThoai;
+    }
+    
+    @Override
+    public String toString() {
+        return "NhanVien{" +
+                "maNV='" + maNV + '\'' +
+                ", tenNV='" + tenNV + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", dienThoai='" + dienThoai + '\'' +
+                '}';
     }
 }

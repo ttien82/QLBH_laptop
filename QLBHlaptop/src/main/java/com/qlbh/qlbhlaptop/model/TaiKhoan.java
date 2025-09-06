@@ -1,5 +1,7 @@
 package com.qlbh.qlbhlaptop.model;
 
+import java.util.Objects;
+
 public class TaiKhoan {
     private String maTK;
     private String maNV;
@@ -7,6 +9,10 @@ public class TaiKhoan {
     private String matKhau;
     private String maQuyen;
     
+    public TaiKhoan(){
+    
+    }
+
     public TaiKhoan(String maTK, String maNV, String tenDangNhap, String matKhau, String maQuyen) {
         this.maTK = maTK;
         this.maNV = maNV;
@@ -55,4 +61,27 @@ public class TaiKhoan {
         this.maQuyen = maQuyen;
     }
     
+    @Override
+    public String toString() {
+        return "TaiKhoan{" +
+                "maTK='" + maTK + '\'' +
+                ", maNV='" + maNV + '\'' +
+                ", tenDangNhap='" + tenDangNhap + '\'' +
+                ", matKhau='" + matKhau + '\'' +
+                ", maQuyen='" + maQuyen + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaiKhoan taiKhoan = (TaiKhoan) o;
+        return Objects.equals(maTK, taiKhoan.maTK) && Objects.equals(maNV, taiKhoan.maNV) && Objects.equals(tenDangNhap, taiKhoan.tenDangNhap) && Objects.equals(matKhau, taiKhoan.matKhau) && Objects.equals(maQuyen, taiKhoan.maQuyen);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maTK, maNV, tenDangNhap, matKhau, maQuyen);
+    }
 }
