@@ -83,7 +83,7 @@ public class KhachHangDAO {
      * @throws DAOException Nếu có lỗi xảy ra trong quá trình thêm dữ liệu.
      */
     public boolean insert(KhachHang kh) {
-        String sql = "INSERT INTO KhachHang(MaKH, TenKH, DienThoai, Email, DiaChi) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO KhachHang VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

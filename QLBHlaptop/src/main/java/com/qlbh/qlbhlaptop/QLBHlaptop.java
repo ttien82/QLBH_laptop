@@ -1,9 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.qlbh.qlbhlaptop;
 
+import com.qlbh.qlbhlaptop.panel.*;
+import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author ttien
@@ -11,6 +13,10 @@ package com.qlbh.qlbhlaptop;
 public class QLBHlaptop {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SanPhamFrame.main(args);
+        //KhachHangFrame.main(args);
+        //LoaiSPFrame.main(args);
+        //NhaCungCapFrame.main(args);
+        //NhanVienFrame.main(args);
     }
 }

@@ -29,11 +29,16 @@ public class LoaiSP {
         this.tenLoaiSP = tenLoaiSP;
     }
     
+//    @Override
+//    public String toString() {
+//        return "LoaiSP{" +
+//                "maLoaiSP='" + maLoaiSP + '\'' +
+//                ", tenLoai='" +tenLoaiSP + '\'' +
+//                '}';
+//    }
+    
     @Override
     public String toString() {
-        return "LoaiSP{" +
-                "maLoaiSP='" + maLoaiSP + '\'' +
-                ", tenLoai='" +tenLoaiSP + '\'' +
-                '}';
+        return tenLoaiSP;
     }
 }
