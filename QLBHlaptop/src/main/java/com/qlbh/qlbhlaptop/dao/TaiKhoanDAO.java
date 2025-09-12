@@ -101,6 +101,30 @@ public class TaiKhoanDAO {
         }
         return null;
     }
+    
+    /**
+     * Tự động tạo mã tài khoản mới (TK001, TK002,...).
+     * @return Mã tài khoản mới.
+     * @throws DAOException Nếu có lỗi xảy ra trong quá trình truy vấn dữ liệu.
+     */
+    public String getLatestMaTK() {
+        String latestMaTK = "TK000";
+        String sql = "SELECT TOP 1 MaTK FROM TaiKhoan ORDER BY MaTK DESC";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                latestMaTK = rs.getString("MaTK");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi lấy mã tài khoản cuối cùng", e);
+        }
+        
+        int number = Integer.parseInt(latestMaTK.substring(2));
+        number++;
+        String newMaTK = "TK" + String.format("%03d", number);
+        return newMaTK;
+    }
 
     /**
      * Thêm một tài khoản mới vào cơ sở dữ liệu. Mật khẩu sẽ được mã hóa trước khi lưu.
@@ -205,10 +229,10 @@ public class TaiKhoanDAO {
     public static void main(String[] args) {
         TaiKhoanDAO dao = new TaiKhoanDAO();
         // Sử dụng dữ liệu thử nghiệm mới để tránh xung đột với dữ liệu mẫu trong DB
-        String testMaTK = "TK002";
-        String testMaNV = "NV002";
-        String testUser = "test";
-        String testPass = "password1234";
+        String testMaTK = "TK005";
+        String testMaNV = "NV004";
+        String testUser = "tt";
+        String testPass = "123";
 
         try {
             // Kiểm tra xem tài khoản đã tồn tại chưa để tránh lỗi trùng lặp

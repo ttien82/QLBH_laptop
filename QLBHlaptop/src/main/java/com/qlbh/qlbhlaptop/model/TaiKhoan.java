@@ -77,7 +77,11 @@ public class TaiKhoan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TaiKhoan taiKhoan = (TaiKhoan) o;
-        return Objects.equals(maTK, taiKhoan.maTK) && Objects.equals(maNV, taiKhoan.maNV) && Objects.equals(tenDangNhap, taiKhoan.tenDangNhap) && Objects.equals(matKhau, taiKhoan.matKhau) && Objects.equals(maQuyen, taiKhoan.maQuyen);
+        return Objects.equals(maTK, taiKhoan.maTK) 
+                && Objects.equals(maNV, taiKhoan.maNV) 
+                && Objects.equals(tenDangNhap, taiKhoan.tenDangNhap) 
+                && Objects.equals(matKhau, taiKhoan.matKhau) 
+                && Objects.equals(maQuyen, taiKhoan.maQuyen);
     }
 
     @Override
