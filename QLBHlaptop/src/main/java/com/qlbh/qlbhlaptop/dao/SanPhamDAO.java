@@ -2,7 +2,6 @@ package com.qlbh.qlbhlaptop.dao;
 
 import com.qlbh.qlbhlaptop.config.DatabaseConnection;
 import com.qlbh.qlbhlaptop.model.SanPham;
-
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ public class SanPhamDAO {
         List<SanPham> list = new ArrayList<>();
         String sql = "SELECT * FROM SanPham";
 
-        // try-with-resources: Tự đóng kết nối khi dùng xong
         try (Connection conn = DatabaseConnection.getConnection(); // Kết nối CSDL
              PreparedStatement ps = conn.prepareStatement(sql);    // Chuẩn bị câu lệnh SQL
              ResultSet rs = ps.executeQuery()) {                 // Thực thi SELECT
@@ -58,6 +56,37 @@ public class SanPhamDAO {
             throw new DAOException("Lỗi khi lấy danh sách sản phẩm", e);
         }
         return list;
+    }
+    
+    
+    public StringBuilder getHienThiSP()
+    {
+        String sql = "SELECT sp.MaSP, sp.TenSP, ncc.TenNCC, lsp.TenLoaiSP, sp.CPU, sp.Ram, sp.OCung, sp.CardManHinh, sp.GiaBan, sp.SoLuongTon, sp.HinhAnh" +
+        " FROM SanPham sp JOIN NhaCungCap ncc ON sp.MaNCC = ncc.MaNCC JOIN LoaiSP lsp ON sp.MaLoaiSP = lsp.MaLoaiSP";
+        StringBuilder sb = new StringBuilder();
+            try (Connection conn = DatabaseConnection.getConnection();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
+                
+               while (rs.next()) {
+                   sb.append("{")
+                     .append(rs.getString("MaSP")).append(", ")
+                     .append(rs.getString("TenSP")).append(", ")
+                     .append(rs.getString("TenNCC")).append(", ")
+                     .append(rs.getString("TenLoaiSP")).append(", ")
+                     .append(rs.getString("CPU")).append(", ")
+                     .append(rs.getString("Ram")).append(", ")
+                     .append(rs.getString("OCung")).append(", ")
+                     .append(rs.getString("CardManHinh")).append(", ")
+                     .append(rs.getBigDecimal("GiaBan")).append(", ")
+                     .append(rs.getInt("SoLuongTon")).append(", ")
+                     .append(rs.getString("HinhAnh"))
+                     .append("};");
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+           return sb;
     }
     
     /**
@@ -117,8 +146,7 @@ public class SanPhamDAO {
      * @throws DAOException Nếu có lỗi xảy ra trong quá trình thêm dữ liệu.
      */
     public boolean insert(SanPham sp) {
-        String sql = "INSERT INTO SanPham(MaSP, TenSP, MaNCC, MaLoaiSP, CPU, Ram, OCung, CardManHinh, GiaBan, SoLuongTon, HinhAnh)"
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //(MaSP, TenSP, MaNCC, MaLoaiSP, CPU, Ram, OCung, CardManHinh, GiaBan, SoLuongTon, HinhAnh)
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

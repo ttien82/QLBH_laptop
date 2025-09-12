@@ -81,7 +81,7 @@ public class LoaiSPDAO {
      * @throws DAOException Nếu có lỗi xảy ra trong quá trình thêm dữ liệu.
      */
     public boolean insert(LoaiSP loai) {
-        String sql = "INSERT INTO LoaiSP(MaLoaiSP, TenLoaiSP) VALUES (?, ?)";
+        String sql = "INSERT INTO LoaiSP VALUES (?, ?)"; //(MaLoaiSP, TenLoaiSP)
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

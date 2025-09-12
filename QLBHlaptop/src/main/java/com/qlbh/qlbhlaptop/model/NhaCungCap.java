@@ -49,13 +49,18 @@ public class NhaCungCap {
         this.dienThoai = dienThoai;
     }
     
+//    @Override
+//    public String toString() {
+//        return "NhaCungCap{" +
+//                "maNCC='" + maNCC + '\'' +
+//                ", tenNCC='" + tenNCC + '\'' +
+//                ", diaChi='" + diaChi + '\'' +
+//                ", dienThoai='" + dienThoai + '\'' +
+//                '}';
+//    }
+    
     @Override
     public String toString() {
-        return "NhaCungCap{" +
-                "maNCC='" + maNCC + '\'' +
-                ", tenNCC='" + tenNCC + '\'' +
-                ", diaChi='" + diaChi + '\'' +
-                ", dienThoai='" + dienThoai + '\'' +
-                '}';
+        return tenNCC;
     }
 }

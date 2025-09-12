@@ -83,7 +83,7 @@ public class NhanVienDAO {
      * @throws DAOException Nếu có lỗi xảy ra trong quá trình thêm dữ liệu.
      */
     public boolean insert(NhanVien nv) {
-        String sql = "INSERT INTO NhanVien(MaNV, TenNV, DiaChi, DienThoai) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO NhanVien VALUES (?, ?, ?, ?)";//(MaNV, TenNV, DiaChi, DienThoai)
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

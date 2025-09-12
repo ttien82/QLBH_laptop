@@ -9,8 +9,6 @@ import java.util.Properties;
 
 
 public class DatabaseConnection {
-    private static Connection connection = null;
-
     // Đọc thông tin từ file config.properties
     private static Properties loadProperties() {
         Properties props = new Properties();
@@ -27,76 +25,74 @@ public class DatabaseConnection {
         return props;
     }
 
-//    // Lấy kết nối
-//    public static Connection getConnection() {
-//        if (connection == null) {
-//            try {
-//                Properties props = loadProperties();
-//                String url = props.getProperty("db.url");
-//                String user = props.getProperty("db.user");
-//                String password = props.getProperty("db.password");
-//
-//                connection = DriverManager.getConnection(url, user, password);
-//                System.out.println("Kết nối đến SQL Server thành công!");
-//            } catch (SQLException e) {
-//                System.err.println("Lỗi kết nối Database:");
-//                e.printStackTrace();
-//            }
+    // Lấy kết nối
+    public static Connection getConnection() {
+        Connection connection = null;
+        try {
+            Properties props = loadProperties();
+            String url = props.getProperty("db.url");
+            String user = props.getProperty("db.user");
+            String password = props.getProperty("db.password");
+
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Kết nối đến SQL Server thành công!");
+        } catch (SQLException e) {
+            System.err.println("Lỗi kết nối Database:");
+            e.printStackTrace();
+            return null;
+        }
+        return connection;
+    }
+    public static void closeConnection(Connection connection) {
+        try {
+            connection.close();
+            connection = null;
+            System.out.println("Đã đóng kết nối đến SQL Server.");
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi đóng kết nối:");
+            e.printStackTrace();
+        }
+        
+    }// CODE KẾT NỐI NÀY SAU NÀY DÙNG CHO TOÀN BÀI
+    // CODE DƯỚI ĐÂY DÙNG ĐỂ TEST TẠM THỜI 
+    
+//    public static Connection getConnection() throws SQLException{
+//        Connection conn = null;
+//        try{
+//        Properties props = loadProperties();
+//        String url = props.getProperty("db.url");
+//        String user = props.getProperty("db.user");
+//        String password = props.getProperty("db.password");
+//        
+//        conn = DriverManager.getConnection(url,user,password);
+//        
+//        System.out.println("Kết nối đến SQL Server thành công!");
+//         } catch (SQLException e) {
+//            System.err.println("Lỗi kết nối Database:");
+//            e.printStackTrace();
 //        }
-//        return connection;
+//        return conn;
 //    }
-//    public static void closeConnection() {
-//        if (connection != null) {
+//    
+//    public static void closeConnection(Connection conn){
+//        if (conn != null){
 //            try {
-//                connection.close();
-//                connection = null;
-//                System.out.println("Đã đóng kết nối đến SQL Server.");
-//            } catch (SQLException e) {
+//                conn.close();
+//                System.err.println("Đã đóng kết nối SQL.");
+//            } catch (Exception e) {
 //                System.err.println("Lỗi khi đóng kết nối:");
 //                e.printStackTrace();
 //            }
 //        }
-//        
-//    }// CODE KẾT NỐI NÀY SAU NÀY DÙNG CHO TOÀN BÀI
-    // CODE DƯỚI ĐÂY DÙNG ĐỂ TEST TẠM THỜI 
+//    
+//    }
     
-    public static Connection getConnection() throws SQLException{
-        Connection conn = null;
-        try{
-        Properties props = loadProperties();
-        String url = props.getProperty("db.url");
-        String user = props.getProperty("db.user");
-        String password = props.getProperty("db.password");
-        
-        conn = DriverManager.getConnection(url,user,password);
-        
-        System.out.println("Kết nối đến SQL Server thành công!");
-         } catch (SQLException e) {
-            System.err.println("Lỗi kết nối Database:");
-            e.printStackTrace();
-        }
-        return conn;
-    }
-    
-    public static void closeConnection(Connection conn){
-        if (conn != null){
-            try {
-                conn.close();
-                System.err.println("Đã đóng kết nối SQL.");
-            } catch (Exception e) {
-                System.err.println("Lỗi khi đóng kết nối:");
-                e.printStackTrace();
-            }
-        }
-    
-    }
-    
-    // Test kết nối
+//    // Test kết nối
     public static void main(String[] args) throws SQLException {
         Connection conn = getConnection();
         if (conn != null) {
             System.out.println("Test kết nối thành công!");
-            closeConnection(conn);
+            //closeConnection();
         }
     }
 }
