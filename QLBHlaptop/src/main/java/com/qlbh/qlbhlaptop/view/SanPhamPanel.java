@@ -138,7 +138,9 @@ public class SanPhamPanel extends JPanel {
     }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-        SanPham_Dialog_Them dialog = new SanPham_Dialog_Them(null);
+        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+        SanPham_Dialog_Them dialog = new SanPham_Dialog_Them(parent);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
@@ -154,7 +156,9 @@ public class SanPhamPanel extends JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {
         int selectedRow = tblSanPham.getSelectedRow();
         if (selectedRow != -1) {
-            SanPham_Dialog_Sua dialog = new SanPham_Dialog_Sua(null, tblSanPham.getValueAt(selectedRow, 0).toString());
+            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+            SanPham_Dialog_Sua dialog = new SanPham_Dialog_Sua(parent, tblSanPham.getValueAt(selectedRow, 0).toString());
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
