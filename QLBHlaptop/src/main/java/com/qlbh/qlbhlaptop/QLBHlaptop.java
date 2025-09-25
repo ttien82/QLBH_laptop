@@ -1,6 +1,5 @@
 package com.qlbh.qlbhlaptop;
 
-import com.qlbh.qlbhlaptop.panel.*;
 import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,7 @@ import java.awt.event.ActionListener;
 public class QLBHlaptop {
 
     public static void main(String[] args) {
-        SanPhamFrame.main(args);
+        //SanPhamFrame.main(args);
         //KhachHangFrame.main(args);
         //LoaiSPFrame.main(args);
         //NhaCungCapFrame.main(args);
