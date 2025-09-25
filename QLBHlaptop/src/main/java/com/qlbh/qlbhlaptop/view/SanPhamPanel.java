@@ -19,7 +19,6 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SanPhamPanel.class.getName());
     public SanPhamPanel() {
         initComponents();
-        
         initTable();
         fillTableData();
 
@@ -27,8 +26,9 @@ public class SanPhamPanel extends javax.swing.JPanel {
         btnAdd.addActionListener(e -> onAdd());
         btnEdit.addActionListener(e -> onEdit());
         btnDelete.addActionListener(e -> onDelete());
-        //btnEdit.addActionListener(e -> fillTableData());
     }
+
+    // Khởi tạo bảng
     private void initTable() {
         String[] columns = {"Mã SP", "Tên SP", "NCC", "Loại SP", "CPU", "RAM", "Ổ Cứng", "Card MH", "Giá Bán", "Số Lượng", "Hình Ảnh"};
         model = new DefaultTableModel(columns, 0) {
@@ -43,17 +43,16 @@ public class SanPhamPanel extends javax.swing.JPanel {
         tbl.setAutoCreateRowSorter(true);
 
         tbl.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                boolean selected = tbl.getSelectedRow() != -1;
-                btnEdit.setEnabled(selected);
-                btnDelete.setEnabled(selected);
-            }
+            boolean selected = tbl.getSelectedRow() != -1;
+            btnEdit.setEnabled(selected);
+            btnDelete.setEnabled(selected);
         });
 
         btnEdit.setEnabled(false);
         btnDelete.setEnabled(false);
     }
 
+    // Load dữ liệu
     private void fillTableData() {
         model.setRowCount(0);
         StringBuilder sb = dao.getHienThiSP();
@@ -83,121 +82,36 @@ public class SanPhamPanel extends javax.swing.JPanel {
         public ImageRenderer() {
             setHorizontalAlignment(JLabel.CENTER);
         }
-
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             setIcon(value instanceof ImageIcon ? (ImageIcon) value : null);
             return this;
         }
     }
-<<<<<<< HEAD
-    
+
+    // Sự kiện nút
     private void onAdd() {
-        SanPham_Dialog_Them   dialog = new SanPham_Dialog_Them  ((JFrame) SwingUtilities.getWindowAncestor(this));
-        dialog.addWindowListener(new WindowAdapter() {
-=======
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-        jPanel1 = new JPanel();
-        jPanel2 = new JPanel();
-        btnAdd = new JButton("Thêm");
-        btnEdit = new JButton("Sửa");
-        btnDelete = new JButton("Xóa");
-        btnRefresh = new JButton("Tải lại");
-        jScrollPane1 = new JScrollPane();
-        jScrollPane2 = new JScrollPane();
-        tblSanPham = new JTable();
-        filler1 = new Box.Filler(new java.awt.Dimension(0, 2), new java.awt.Dimension(0, 2), new java.awt.Dimension(32767, 2));
-
-        btnAdd.addActionListener(evt -> btnAddActionPerformed(evt));
-        btnEdit.addActionListener(evt -> btnEditActionPerformed(evt));
-        btnDelete.addActionListener(evt -> btnDeleteActionPerformed(evt));
-        btnRefresh.addActionListener(evt -> fillTableData());
-
-        jPanel2.add(btnAdd);
-        jPanel2.add(btnEdit);
-        jPanel2.add(btnRefresh);
-        jPanel2.add(btnDelete);
-
-        tblSanPham.setModel(new DefaultTableModel(
-            new Object[][]{{null, null, null, null, null}},
-            new String[]{"Title 1", "Title 2", "Title 3", "Title 4", "Title 5"}
-        ));
-        jScrollPane1.setViewportView(tblSanPham);
-        jScrollPane2.setViewportView(jScrollPane1);
-
-        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
-            .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        );
-
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(jPanel1);
-    }
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
         SanPham_Dialog_Them dialog = new SanPham_Dialog_Them(parent);
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
->>>>>>> main
+        dialog.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                fillTableData();
-            }
-            public void windowClosing(WindowEvent e) {
-                fillTableData();
-            }
+            public void windowClosed(WindowEvent e) { fillTableData(); }
+            public void windowClosing(WindowEvent e) { fillTableData(); }
         });
         dialog.setVisible(true);
     }
 
-<<<<<<< HEAD
     private void onEdit() {
         int row = tbl.getSelectedRow();
         if (row == -1) return;
-=======
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {
-        int selectedRow = tblSanPham.getSelectedRow();
-        if (selectedRow != -1) {
-            JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-            SanPham_Dialog_Sua dialog = new SanPham_Dialog_Sua(parent, tblSanPham.getValueAt(selectedRow, 0).toString());
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent e) {
-                    fillTableData();
-                }
-                public void windowClosing(WindowEvent e) {
-                    fillTableData();
-                }
-            });
-            dialog.setVisible(true);
-        }
-    }
->>>>>>> main
-
         String ma = tbl.getValueAt(row, 0).toString();
-        SanPham_Dialog_Sua  dialog = new SanPham_Dialog_Sua ((JFrame) SwingUtilities.getWindowAncestor(this), ma);
+
+        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
+        SanPham_Dialog_Sua dialog = new SanPham_Dialog_Sua(parent, ma);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                fillTableData();
-            }
-            public void windowClosing(WindowEvent e) {
-                fillTableData();
-            }
+            public void windowClosed(WindowEvent e) { fillTableData(); }
+            public void windowClosing(WindowEvent e) { fillTableData(); }
         });
         dialog.setVisible(true);
     }
@@ -206,16 +120,10 @@ public class SanPhamPanel extends javax.swing.JPanel {
         int row = tbl.getSelectedRow();
         if (row == -1) return;
 
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Bạn có chắc chắn muốn xóa Sản Phẩm này?",
-                "Xác nhận",
-                JOptionPane.YES_NO_OPTION
-        );
-
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa Sản Phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            String maKH = tbl.getValueAt(row, 0).toString();
-            dao.delete(maKH);
+            String ma = tbl.getValueAt(row, 0).toString();
+            dao.delete(ma);
             fillTableData();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
         }
