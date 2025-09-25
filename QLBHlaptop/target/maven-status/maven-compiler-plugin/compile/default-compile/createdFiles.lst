@@ -38,7 +38,10 @@ com\qlbh\qlbhlaptop\controller\LoginController.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController$2.class
 com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 com\qlbh\qlbhlaptop\view\PhieuNhapPanel$1.class
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 com\qlbh\qlbhlaptop\dao\KhachHangDAO.class
@@ -49,6 +52,7 @@ com\qlbh\qlbhlaptop\dao\NhanVienDAO.class
 com\qlbh\qlbhlaptop\controller\PhieuNhapController.class
 com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Sua.class
 com\qlbh\qlbhlaptop\view\NhanVienPanel.class
+<<<<<<< HEAD
 <<<<<<< HEAD
 com\qlbh\qlbhlaptop\view\LoaiSPPanel$3.class
 com\qlbh\qlbhlaptop\model\NhanVien.class
@@ -61,13 +65,21 @@ com\qlbh\qlbhlaptop\model\NhanVien.class
 com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.class
 com\qlbh\qlbhlaptop\controller\LoaiSPController.class
 >>>>>>> main
+=======
+com\qlbh\qlbhlaptop\model\NhanVien.class
+com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.class
+com\qlbh\qlbhlaptop\controller\LoaiSPController.class
+>>>>>>> main
 com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.class
 com\qlbh\qlbhlaptop\view\MainFrame.class
 com\qlbh\qlbhlaptop\view\TaiKhoanPanel.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel$1.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 com\qlbh\qlbhlaptop\view\NhanVienPanel$3.class
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.class
@@ -84,7 +96,10 @@ com\qlbh\qlbhlaptop\controller\TaiKhoanController$4.class
 com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.class
 com\qlbh\qlbhlaptop\model\PhieuNhap.class
 <<<<<<< HEAD
+<<<<<<< HEAD
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel$3.class
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.class
