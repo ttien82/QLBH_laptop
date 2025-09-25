@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -54,8 +55,8 @@ public class SanPham_Dialog_Sua extends JDialog{
         sp = spdao.getById(maSP);
         txtMaSP = new JTextField(maSP);
 
-        var LstNcc = nccdao.getAll();
-        var lstLSP =  loaispdao.getAll();
+        List <NhaCungCap> LstNcc = nccdao.getAll();
+        List <LoaiSP> lstLSP =  loaispdao.getAll();
         for(NhaCungCap nhacc: LstNcc)
         {
             modelNCC.addElement(nhacc);
@@ -73,7 +74,7 @@ public class SanPham_Dialog_Sua extends JDialog{
         panelForm.add(txtTenSP);
 
         panelForm.add(new JLabel("Nhà Cung Cấp:"));
-        cboNCC = new JComboBox(modelNCC);
+        cboNCC = new JComboBox<NhaCungCap>(modelNCC);
         cboNCC.setModel(modelNCC);
         //HienThi NhaCC
         for (int i = 0; i < cboNCC.getItemCount(); i++) {
@@ -86,8 +87,7 @@ public class SanPham_Dialog_Sua extends JDialog{
         panelForm.add(cboNCC);
         
         panelForm.add(new JLabel("Loại SP:"));
-        cboLoaiSP = new JComboBox<>();   
-        cboLoaiSP.setModel(modelLoaiSP);
+        cboLoaiSP = new JComboBox<LoaiSP>(modelLoaiSP);   
         //HienThi LoaiSPTuongUng
         for (int i = 0; i < cboLoaiSP.getItemCount(); i++) {
             LoaiSP item = cboLoaiSP.getItemAt(i);

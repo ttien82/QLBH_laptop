@@ -52,8 +52,8 @@ public class SanPham_Dialog_Them extends JDialog{
         NhaCungCapDAO nccdao = new NhaCungCapDAO();
         LoaiSPDAO loaispdao = new LoaiSPDAO();
                 
-        var LstNcc = nccdao.getAll();
-        var lstLSP =  loaispdao.getAll();
+        List <NhaCungCap> LstNcc = nccdao.getAll();
+        List <LoaiSP> lstLSP =  loaispdao.getAll();
         for(NhaCungCap nhacc: LstNcc)
         {
             modelNCC.addElement(nhacc);
@@ -75,15 +75,14 @@ public class SanPham_Dialog_Them extends JDialog{
 
         
         panelForm.add(new JLabel("Nhà Cung Cấp:"));
-        cboNCC = new JComboBox(modelNCC);
+        cboNCC = new JComboBox<NhaCungCap>(modelNCC);
         cboNCC.setModel(modelNCC);
        
         cboNCC.setSelectedIndex(0);
         panelForm.add(cboNCC);
         
         panelForm.add(new JLabel("Loại SP:"));
-        cboLoaiSP = new JComboBox<>();   
-        cboLoaiSP.setModel(modelLoaiSP);
+        cboLoaiSP = new JComboBox<LoaiSP>(modelLoaiSP);   
         cboLoaiSP.setSelectedIndex(0);
         panelForm.add(cboLoaiSP);
                 
@@ -165,51 +164,51 @@ public class SanPham_Dialog_Them extends JDialog{
         String giaBanStr = txtGiaBan.getText().trim();
 
         // Kiểm tra giá bán có phải là số VA Kiểm tra tên SP rỗng
-            double giaBan = Double.parseDouble(giaBanStr);
-            if (giaBan <= 0 || tenSP.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống va Giá bán phải lớn hơn 0!");
-            }
+        double giaBan = Double.parseDouble(giaBanStr);
+        if (giaBan <= 0 || tenSP.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được để trống va Giá bán phải lớn hơn 0!");
+        }
+        else 
+        {
+            SanPham spMoi = new SanPham(
+                    txtMaSP.getText(),
+                    txtTenSP.getText(),
+                    getSelectedMaNCC(cboNCC),
+                    getSelectedMaLoaiSP(cboLoaiSP),
+                    txtCPU.getText(),
+                    txtRAM.getText(),
+                    txtOCung.getText(),
+                    txtCard.getText(),
+                    new BigDecimal(txtGiaBan.getText()),
+                    Integer.parseInt(txtSoLuong.getText()),
+                    lblHinhAnh.getText()
+                );          
+            if (spdao.insert(spMoi))// Lưu xuống DB 
+            {        
+                if (file != null) {
+                    // Thư mục đích (folder images trong dự án)
+                    File destDir = new File("images");
+                    // File đích trong folder images
+                    File destFile = new File(destDir, lblHinhAnh.getText());
+                    try 
+                    {
+                        // Copy file vào folder images, nếu trùng thì ghi đè
+                        Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);   
+                    } 
+                    catch (IOException ex) 
+                    {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(this, "Lỗi khi copy ảnh!");
+                    }
+                }
+
+                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!");
+                Load_ThemSPDialog();
+            } 
             else 
             {
-                SanPham spMoi = new SanPham(
-                        txtMaSP.getText(),
-                        txtTenSP.getText(),
-                        getSelectedMaNCC(cboNCC),
-                        getSelectedMaLoaiSP(cboLoaiSP),
-                        txtCPU.getText(),
-                        txtRAM.getText(),
-                        txtOCung.getText(),
-                        txtCard.getText(),
-                        new BigDecimal(txtGiaBan.getText()),
-                        Integer.parseInt(txtSoLuong.getText()),
-                        lblHinhAnh.getText()
-                    );          
-                if (spdao.insert(spMoi))// Lưu xuống DB 
-                {        
-                    if (file != null) {
-                        // Thư mục đích (folder images trong dự án)
-                        File destDir = new File("images");
-                        // File đích trong folder images
-                        File destFile = new File(destDir, lblHinhAnh.getText());
-                        try 
-                        {
-                            // Copy file vào folder images, nếu trùng thì ghi đè
-                            Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);   
-                        } 
-                        catch (IOException ex) 
-                        {
-                                ex.printStackTrace();
-                                JOptionPane.showMessageDialog(this, "Lỗi khi copy ảnh!");
-                        }
-                    }
-
-                    JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!");
-                    Load_ThemSPDialog();
-                } 
-                else 
-                {
-                    JOptionPane.showMessageDialog(this, "Thêm thất bại!");
-                }
+                JOptionPane.showMessageDialog(this, "Thêm thất bại!");
             }
+        }
     }
 }
