@@ -2,6 +2,7 @@ package com.qlbh.qlbhlaptop.dao;
 
 import com.qlbh.qlbhlaptop.config.DatabaseConnection;
 import com.qlbh.qlbhlaptop.dto.RevenueByEmployeeDTO;
+import com.qlbh.qlbhlaptop.dto.TopCustomerByEmpDTO;
 import com.qlbh.qlbhlaptop.model.NhanVien;
 
 import java.sql.*;
@@ -145,25 +146,34 @@ public class NhanVienDAO {
     }
 
     /**
-     * Lấy danh sách nhân viên có doanh thu cao nhất trong khoảng thời gian chỉ định.
+     * Lấy danh sách nhân viên có doanh thu cao nhất trong khoảng thời gian chỉ
+     * định.
      *
-     *Hàm này thực hiện truy vấn cơ sở dữ liệu để tính toán tổng doanh thu và số đơn hàng
-     * mà mỗi nhân viên đã thực hiện trong khoảng từ {@code from} đến {@code to}.
-     * Kết quả được sắp xếp theo tổng doanh thu giảm dần và giới hạn bởi tham số {@code limit}.
-     * Nếu {@code limit} là null, mặc định sẽ lấy tất cả nhân viên (với ngưỡng rất lớn)
+     * Hàm này thực hiện truy vấn cơ sở dữ liệu để tính toán tổng doanh thu và
+     * số đơn hàng mà mỗi nhân viên đã thực hiện trong khoảng từ {@code from}
+     * đến {@code to}. Kết quả được sắp xếp theo tổng doanh thu giảm dần và giới
+     * hạn bởi tham số {@code limit}. Nếu {@code limit} là null, mặc định sẽ lấy
+     * tất cả nhân viên (với ngưỡng rất lớn)
      *
-     * 
-     *  Tổng doanh thu: được tính bằng tổng số lượng * đơn giá của tất cả chi tiết đơn hàng
-     *  Số đơn hàng: số lượng đơn hàng khác nhau mà nhân viên đã phụ trách.</li>
-     *  Giá trị đơn trung bình: doanh thu chia cho số đơn hàng (0 nếu không có đơn)
-     * 
      *
-     * @param from  Ngày bắt đầu (bao gồm). Nếu null, không giới hạn ngày bắt đầu.
-     * @param to    Ngày kết thúc (bao gồm). Nếu null, không giới hạn ngày kết thúc.
-     * @param limit Số lượng nhân viên tối đa cần lấy (Top N). Nếu null, mặc định lấy tất cả.
-     * @return Danh sách {@link RevenueByEmployeeDTO} chứa thông tin doanh thu theo nhân viên.
-     *         Danh sách có thể ít hơn {@code limit} nếu số nhân viên hợp lệ nhỏ hơn.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình truy vấn hoặc xử lý dữ liệu.
+     * Tổng doanh thu: được tính bằng tổng số lượng * đơn giá của tất cả chi
+     * tiết đơn hàng Số đơn hàng: số lượng đơn hàng khác nhau mà nhân viên đã
+     * phụ trách.</li>
+     * Giá trị đơn trung bình: doanh thu chia cho số đơn hàng (0 nếu không có
+     * đơn)
+     *
+     *
+     * @param from Ngày bắt đầu (bao gồm). Nếu null, không giới hạn ngày bắt
+     * đầu.
+     * @param to Ngày kết thúc (bao gồm). Nếu null, không giới hạn ngày kết
+     * thúc.
+     * @param limit Số lượng nhân viên tối đa cần lấy (Top N). Nếu null, mặc
+     * định lấy tất cả.
+     * @return Danh sách {@link RevenueByEmployeeDTO} chứa thông tin doanh thu
+     * theo nhân viên. Danh sách có thể ít hơn {@code limit} nếu số nhân viên
+     * hợp lệ nhỏ hơn.
+     * @throws DAOException Nếu có lỗi xảy ra trong quá trình truy vấn hoặc xử
+     * lý dữ liệu.
      */
     public List<RevenueByEmployeeDTO> getTopRevenueEmployees(LocalDate from, LocalDate to, Integer limit)
             throws DAOException {
@@ -223,6 +233,53 @@ public class NhanVienDAO {
             throw new DAOException("Lỗi KPI doanh thu nhân viên", ex);
         }
         return list;
+    }
+
+    // com.qlbh.qlbhlaptop.dao.NhanVienDAO
+    public List<TopCustomerByEmpDTO> getTopCustomersByEmployee(
+            String maNV, java.time.LocalDate fromInclusive, java.time.LocalDate toInclusive,
+            Integer limit, boolean excludeCanceled
+    ) throws DAOException {
+        List<TopCustomerByEmpDTO> out = new ArrayList<>();
+        String sql = """
+        SELECT TOP (ISNULL(?, 1000000))
+               kh.MaKH, kh.TenKH,
+               COUNT(DISTINCT dh.MaDH)     AS SoDon,
+               SUM(ct.SoLuong * ct.DonGia) AS DoanhThu
+        FROM DonHang dh
+        JOIN ChiTietDonHang ct ON dh.MaDH = ct.MaDH
+        JOIN KhachHang kh       ON dh.MaKH = kh.MaKH
+        WHERE dh.MaNV = ?
+          AND dh.NgayLap >= ?
+          AND dh.NgayLap <  DATEADD(day, 1, ?)
+          """ + (excludeCanceled ? " AND (dh.TrangThai IS NULL OR dh.TrangThai <> 'Huy')" : "") + """
+        GROUP BY kh.MaKH, kh.TenKH
+        ORDER BY DoanhThu DESC, kh.MaKH ASC;
+    """;
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            int i = 1;
+            if (limit == null) {
+                ps.setNull(i++, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(i++, limit);
+            }
+            ps.setString(i++, maNV);
+            ps.setDate(i++, java.sql.Date.valueOf(fromInclusive));
+            ps.setDate(i++, java.sql.Date.valueOf(toInclusive));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    out.add(new TopCustomerByEmpDTO(
+                            rs.getString("MaKH"),
+                            rs.getString("TenKH"),
+                            rs.getInt("SoDon"),
+                            rs.getDouble("DoanhThu")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Top khách hàng theo nhân viên", e);
+        }
+        return out;
     }
 
     /**

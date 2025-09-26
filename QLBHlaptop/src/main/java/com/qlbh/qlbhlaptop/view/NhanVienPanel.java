@@ -35,6 +35,14 @@ public class NhanVienPanel extends javax.swing.JPanel {
         return btnTopSaleEmp;
     }
 
+    public javax.swing.JButton getBtnTopCustomerByEmp() {
+        return btnTopCustomerByEmp;
+    }
+
+    public javax.swing.JButton getBtnReload() {
+        return btnReload;
+    }
+
     // Cho phép Controller thay TableModel mà không đụng phần generated
     public void setTableModel(javax.swing.table.TableModel model) {
         tbl.setModel(model);
@@ -55,8 +63,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnTopSaleEmp = new javax.swing.JButton();
-        btnTopProductByEmp = new javax.swing.JButton();
-        btnPerformanceEmp = new javax.swing.JButton();
+        btnTopCustomerByEmp = new javax.swing.JButton();
+        btnExportCSV1 = new javax.swing.JButton();
+        btnReload = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
@@ -80,7 +89,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 .addComponent(lblSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,28 +151,38 @@ public class NhanVienPanel extends javax.swing.JPanel {
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Cập nhật");
 
-        btnTopSaleEmp.setBackground(new java.awt.Color(51, 255, 204));
+        btnTopSaleEmp.setBackground(new java.awt.Color(102, 255, 102));
         btnTopSaleEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnTopSaleEmp.setForeground(new java.awt.Color(255, 255, 255));
         btnTopSaleEmp.setText("Top Doanh Thu");
 
-        btnTopProductByEmp.setBackground(new java.awt.Color(51, 255, 204));
-        btnTopProductByEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnTopProductByEmp.setForeground(new java.awt.Color(255, 255, 255));
-        btnTopProductByEmp.setText("Top Sản Phẩm");
-        btnTopProductByEmp.addActionListener(new java.awt.event.ActionListener() {
+        btnTopCustomerByEmp.setBackground(new java.awt.Color(102, 255, 102));
+        btnTopCustomerByEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnTopCustomerByEmp.setForeground(new java.awt.Color(255, 255, 255));
+        btnTopCustomerByEmp.setText("Top KH/NV");
+        btnTopCustomerByEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTopProductByEmpActionPerformed(evt);
+                btnTopCustomerByEmpActionPerformed(evt);
             }
         });
 
-        btnPerformanceEmp.setBackground(new java.awt.Color(51, 255, 204));
-        btnPerformanceEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnPerformanceEmp.setForeground(new java.awt.Color(255, 255, 255));
-        btnPerformanceEmp.setText("Chart Hiệu Suất");
-        btnPerformanceEmp.addActionListener(new java.awt.event.ActionListener() {
+        btnExportCSV1.setBackground(new java.awt.Color(102, 255, 102));
+        btnExportCSV1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnExportCSV1.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportCSV1.setText("Xuất CSV");
+        btnExportCSV1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPerformanceEmpActionPerformed(evt);
+                btnExportCSV1ActionPerformed(evt);
+            }
+        });
+
+        btnReload.setBackground(new java.awt.Color(51, 153, 0));
+        btnReload.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnReload.setForeground(new java.awt.Color(255, 255, 255));
+        btnReload.setText("Tải lại");
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
             }
         });
 
@@ -175,14 +194,18 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(btnTopSaleEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTopProductByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPerformanceEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTopCustomerByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(254, 254, 254)
+                .addComponent(btnExportCSV1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,8 +215,10 @@ public class NhanVienPanel extends javax.swing.JPanel {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTopSaleEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTopProductByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPerformanceEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTopCustomerByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(btnExportCSV1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -267,21 +292,26 @@ public class NhanVienPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
-    private void btnTopProductByEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopProductByEmpActionPerformed
+    private void btnTopCustomerByEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopCustomerByEmpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTopProductByEmpActionPerformed
+    }//GEN-LAST:event_btnTopCustomerByEmpActionPerformed
 
-    private void btnPerformanceEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerformanceEmpActionPerformed
+    private void btnExportCSV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportCSV1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnPerformanceEmpActionPerformed
+    }//GEN-LAST:event_btnExportCSV1ActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReloadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnPerformanceEmp;
+    private javax.swing.JButton btnExportCSV1;
+    private javax.swing.JButton btnReload;
     private javax.swing.JButton btnSearch1;
-    private javax.swing.JButton btnTopProductByEmp;
+    private javax.swing.JButton btnTopCustomerByEmp;
     private javax.swing.JButton btnTopSaleEmp;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -7,7 +7,9 @@ import com.qlbh.qlbhlaptop.view.NhanVienPanel;
 import com.qlbh.qlbhlaptop.dto.RevenueByEmployeeDTO;
 import com.qlbh.qlbhlaptop.dialog.NhanVien_Dialog_Them;
 import com.qlbh.qlbhlaptop.dialog.NhanVien_Dialog_Sua;
+import com.qlbh.qlbhlaptop.dialog.NhanVien_TopCustomer_Dialog;
 import com.qlbh.qlbhlaptop.dialog.NhanVien_TopSale_Dialog;
+import com.qlbh.qlbhlaptop.dto.TopCustomerByEmpDTO;
 
 //
 import java.time.LocalDate;
@@ -69,6 +71,9 @@ public class NhanVienController {
         view.getBtnEdit().addActionListener(ev -> onEdit());
         view.getBtnDelete().addActionListener(ev -> onDelete());
         view.getBtnTopSaleEmp().addActionListener(ev -> onTopSale());
+        view.getBtnTopCustomerByEmp().addActionListener(e -> onTopCustomerByEmp());
+        view.getBtnReload().addActionListener(e -> onReload());
+
         refreshData();
     }
 
@@ -95,7 +100,7 @@ public class NhanVienController {
         ).collect(Collectors.toList());
         fillTable(filtered);
     }
-    
+
 //    Top 10 nhân viên trong 90 ngày gần nhất
     private void onTopSale() {
         try {
@@ -108,6 +113,36 @@ public class NhanVienController {
             new NhanVien_TopSale_Dialog(parent, top, from, to).setVisible(true);
         } catch (DAOException ex) {
             showError("Không thể tính KPI doanh thu nhân viên", ex);
+        }
+    }
+
+    private void onTopCustomerByEmp() {
+        JTable tbl = view.getTbl();
+        int viewRow = tbl.getSelectedRow();
+        if (viewRow == -1) {
+            JOptionPane.showMessageDialog(view, "Hãy chọn 1 nhân viên trước.");
+            return;
+        }
+        int row = tbl.convertRowIndexToModel(viewRow);
+        String maNV = (String) model.getValueAt(row, 0);
+        String tenNV = (String) model.getValueAt(row, 1);
+
+        try {
+            // gọi DAO, ví dụ lấy Top 10 toàn thời gian
+            List<TopCustomerByEmpDTO> rows = dao.getTopCustomersByEmployee(
+                    maNV,
+                    java.time.LocalDate.of(2025, 9, 1),
+                    java.time.LocalDate.now(),
+                    10, // Top 10
+                    true // loại đơn hủy
+            );
+
+            java.awt.Window w = SwingUtilities.getWindowAncestor(view);
+            JFrame parent = (w instanceof JFrame) ? (JFrame) w : null;
+            new NhanVien_TopCustomer_Dialog(parent, tenNV, rows, null, null).setVisible(true);
+
+        } catch (DAOException ex) {
+            showError("Không thể lấy Top khách hàng của nhân viên " + maNV, ex);
         }
     }
 
@@ -180,10 +215,18 @@ public class NhanVienController {
         view.getBtnEdit().setEnabled(false);
         view.getBtnDelete().setEnabled(false);
     }
+    
+    // tải lại dữ liệu
+    private void onReload() {
+    refreshData();
+    JOptionPane.showMessageDialog(view, "Dữ liệu đã được tải lại.");
+}
 
     private static boolean contains(String s, String kw) {
         return s != null && s.toLowerCase(Locale.ROOT).contains(kw);
     }
+    
+    
 
     private void showError(String msg, Exception ex) {
         ex.printStackTrace();

@@ -77,7 +77,7 @@
                       <Component id="lblSearch1" min="-2" pref="399" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnSearch1" min="-2" pref="86" max="-2" attributes="0"/>
-                      <EmptySpace pref="308" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -189,14 +189,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnTopSaleEmp" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnTopProductByEmp" min="-2" pref="115" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnPerformanceEmp" min="-2" pref="115" max="-2" attributes="0"/>
+                      <Component id="btnTopCustomerByEmp" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnReload" min="-2" pref="114" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEdit" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDelete" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="254" pref="254" max="-2" attributes="0"/>
+                      <Component id="btnExportCSV1" min="-2" pref="115" max="-2" attributes="0"/>
+                      <EmptySpace min="732" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -208,9 +213,11 @@
                           <Component id="btnDelete" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnEdit" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnTopSaleEmp" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="btnTopProductByEmp" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="btnPerformanceEmp" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnTopCustomerByEmp" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnReload" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="btnExportCSV1" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -248,7 +255,7 @@
             <Component class="javax.swing.JButton" name="btnTopSaleEmp">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="33" type="rgb"/>
+                  <Color blue="66" green="ff" red="66" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="0"/>
@@ -259,10 +266,10 @@
                 <Property name="text" type="java.lang.String" value="Top Doanh Thu"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnTopProductByEmp">
+            <Component class="javax.swing.JButton" name="btnTopCustomerByEmp">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="33" type="rgb"/>
+                  <Color blue="66" green="ff" red="66" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="0"/>
@@ -270,16 +277,16 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Top S&#x1ea3;n Ph&#x1ea9;m"/>
+                <Property name="text" type="java.lang.String" value="Top KH/NV"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTopProductByEmpActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTopCustomerByEmpActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnPerformanceEmp">
+            <Component class="javax.swing.JButton" name="btnExportCSV1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="ff" red="33" type="rgb"/>
+                  <Color blue="66" green="ff" red="66" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="0"/>
@@ -287,10 +294,27 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Chart Hi&#x1ec7;u Su&#x1ea5;t"/>
+                <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t CSV"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPerformanceEmpActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportCSV1ActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnReload">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="99" red="33" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="T&#x1ea3;i l&#x1ea1;i"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReloadActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
