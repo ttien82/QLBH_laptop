@@ -78,7 +78,8 @@ public class NhanVien_Dialog_Them extends JDialog{
                 if (nvdao.insert(nvMoi))// Lưu xuống DB 
                 {            
                     JOptionPane.showMessageDialog(this, "Thêm Nhân viên thành công!");
-                    Load_ThemNVDialog();
+//                    Load_ThemNVDialog();
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Thêm thất bại!");
                 }

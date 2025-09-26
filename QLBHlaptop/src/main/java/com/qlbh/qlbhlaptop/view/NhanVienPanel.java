@@ -1,118 +1,45 @@
 package com.qlbh.qlbhlaptop.view;
 
-import com.qlbh.qlbhlaptop.dao.NhanVienDAO;
-import com.qlbh.qlbhlaptop.model.NhanVien;
-import com.qlbh.qlbhlaptop.dialog.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-
 public class NhanVienPanel extends javax.swing.JPanel {
 
-    private NhanVienDAO dao = new NhanVienDAO();
-    private DefaultTableModel model;
-    private List<NhanVien> ListNV;
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(NhanVienPanel.class.getName());
     public NhanVienPanel() {
         initComponents();
-
-        initTable();
-        fillTableData();
-
-        // Sự kiện nút
-        btnAdd.addActionListener(e -> onAdd());
-        btnEdit.addActionListener(e -> onEdit());
-        btnDelete.addActionListener(e -> onDelete());
-        //btnEdit.addActionListener(e -> fillTableData());
     }
-    private void initTable() {
-        String[] columns = {"Mã NV", "Tên NV", "Điện thoại", "Địa chỉ"};
-        model = new DefaultTableModel(columns, 0);
+
+    public javax.swing.JTable getTbl() {
+        return tbl;
+    }
+
+    public javax.swing.JButton getBtnAdd() {
+        return btnAdd;
+    }
+
+    public javax.swing.JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public javax.swing.JButton getBtnDelete() {
+        return btnDelete;
+    }
+
+    // Dùng đúng tên bạn đang có: btnSearch1, lblSearch1
+    public javax.swing.JButton getBtnSearch() {
+        return btnSearch1;
+    }
+
+    public javax.swing.JTextField getTxtSearch() {
+        return lblSearch1;
+    }
+
+    public javax.swing.JButton getBtnTopSaleEmp() {
+        return btnTopSaleEmp;
+    }
+
+    // Cho phép Controller thay TableModel mà không đụng phần generated
+    public void setTableModel(javax.swing.table.TableModel model) {
         tbl.setModel(model);
-        tbl.setAutoCreateRowSorter(true);
-        tbl.setDefaultEditor(Object.class, null);
-
-        tbl.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                boolean rowSelected = tbl.getSelectedRow() != -1;
-                btnEdit.setEnabled(rowSelected);
-                btnDelete.setEnabled(rowSelected);
-            }
-        });
-
-        btnEdit.setEnabled(false);
-        btnDelete.setEnabled(false);
     }
 
-    private void fillTableData() {
-        model.setRowCount(0);
-        ListNV = dao.getAll();
-        for (NhanVien nv : ListNV) {
-            model.addRow(new Object[]{
-                nv.getMaNV(),
-                nv.getTenNV(),
-                nv.getDienThoai(),
-                nv.getDiaChi()
-            });
-        }
-    }
-
-    private void onAdd() {
-        NhanVien_Dialog_Them  dialog = new NhanVien_Dialog_Them ((JFrame) SwingUtilities.getWindowAncestor(this));
-        dialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                fillTableData();
-            }
-            public void windowClosing(WindowEvent e) {
-                fillTableData();
-            }
-        });
-        dialog.setVisible(true);
-    }
-
-    private void onEdit() {
-        int row = tbl.getSelectedRow();
-        if (row == -1) return;
-
-        String ma = tbl.getValueAt(row, 0).toString();
-        NhanVien_Dialog_Sua dialog = new NhanVien_Dialog_Sua((JFrame) SwingUtilities.getWindowAncestor(this), ma);
-        dialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                fillTableData();
-            }
-            public void windowClosing(WindowEvent e) {
-                fillTableData();
-            }
-        });
-        dialog.setVisible(true);
-    }
-
-    private void onDelete() {
-        int row = tbl.getSelectedRow();
-        if (row == -1) return;
-
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Bạn có chắc chắn muốn xóa Nhân Viên này?",
-                "Xác nhận",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            String maKH = tbl.getValueAt(row, 0).toString();
-            dao.delete(maKH);
-            fillTableData();
-            JOptionPane.showMessageDialog(this, "Xóa thành công!");
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,6 +54,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnTopSaleEmp = new javax.swing.JButton();
+        btnTopProductByEmp = new javax.swing.JButton();
+        btnPerformanceEmp = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
@@ -158,7 +88,6 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(6, 6, 6))
                     .addComponent(lblSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,14 +142,45 @@ public class NhanVienPanel extends javax.swing.JPanel {
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Cập nhật");
 
+        btnTopSaleEmp.setBackground(new java.awt.Color(51, 255, 204));
+        btnTopSaleEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnTopSaleEmp.setForeground(new java.awt.Color(255, 255, 255));
+        btnTopSaleEmp.setText("Top Doanh Thu");
+
+        btnTopProductByEmp.setBackground(new java.awt.Color(51, 255, 204));
+        btnTopProductByEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnTopProductByEmp.setForeground(new java.awt.Color(255, 255, 255));
+        btnTopProductByEmp.setText("Top Sản Phẩm");
+        btnTopProductByEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTopProductByEmpActionPerformed(evt);
+            }
+        });
+
+        btnPerformanceEmp.setBackground(new java.awt.Color(51, 255, 204));
+        btnPerformanceEmp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPerformanceEmp.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerformanceEmp.setText("Chart Hiệu Suất");
+        btnPerformanceEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerformanceEmpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnTopSaleEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTopProductByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPerformanceEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -230,7 +190,10 @@ public class NhanVienPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTopSaleEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTopProductByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPerformanceEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -304,25 +267,29 @@ public class NhanVienPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
-        public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new NhanVienPanel().setVisible(true));
-    }
+    private void btnTopProductByEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopProductByEmpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTopProductByEmpActionPerformed
+
+    private void btnPerformanceEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerformanceEmpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPerformanceEmpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnPerformanceEmp;
     private javax.swing.JButton btnSearch1;
+    private javax.swing.JButton btnTopProductByEmp;
+    private javax.swing.JButton btnTopSaleEmp;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lblSearch;
     private javax.swing.JTextField lblSearch1;
     private javax.swing.JTable tbl;
     // End of variables declaration//GEN-END:variables

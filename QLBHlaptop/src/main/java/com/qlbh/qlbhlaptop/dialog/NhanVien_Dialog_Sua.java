@@ -83,6 +83,7 @@ public class NhanVien_Dialog_Sua extends JDialog{
                 if (nvdao.update(nvMoi))// Lưu xuống DB 
                 {           
                     JOptionPane.showMessageDialog(this, "Update NV thành công!");
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Update thất bại!");
                 }

@@ -142,6 +142,8 @@ public class KhachHangDAO {
             throw new DAOException("Lỗi khi xóa khách hàng", e);
         }
     }
+    /* Search by MaKH, TenKH, DienThoai, Email, DiaChi (LIKE %kw%)*/
+   
 
     /**
      * Phương thức main để kiểm tra chức năng của lớp KhachHangDAO.
