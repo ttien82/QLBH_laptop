@@ -7,11 +7,16 @@ import com.qlbh.qlbhlaptop.model.KhachHang;
 import com.qlbh.qlbhlaptop.view.KhachHangPanel;
 import com.qlbh.qlbhlaptop.dialog.KhachHang_Dialog_Them;
 import com.qlbh.qlbhlaptop.dialog.KhachHang_Dialog_Sua;
+import com.qlbh.qlbhlaptop.dto.OrderOfCustomerDTO;
+import com.qlbh.qlbhlaptop.dialog.KhachHang_Orders_Dialog;
+import com.qlbh.qlbhlaptop.dialog.KhachHang_TopCustomers_Dialog;
+import com.qlbh.qlbhlaptop.dto.TopCustomerDTO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Window;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.Locale;
 import javax.swing.SwingUtilities;
@@ -66,7 +71,9 @@ public class KhachHangController {
         view.getBtnAdd().addActionListener(ev -> onAdd());
         view.getBtnEdit().addActionListener(ev -> onEdit());
         view.getBtnDelete().addActionListener(ev -> onDelete());
-
+        view.getBtnOrdersByCustomer().addActionListener(e -> onOrdersByCustomer());
+        view.getBtnTopCustomers().addActionListener(e -> onTopCustomers());
+        view.getBtnReload().addActionListener(e -> onReload());
         // 4) Tải dữ liệu ban đầu
         refreshData();
     }
@@ -81,6 +88,10 @@ public class KhachHangController {
         }
     }
     
+    private void onReload() {
+    refreshData();
+    JOptionPane.showMessageDialog(view, "Dữ liệu đã được tải lại.");
+    }
     private void onSearch() {
         String kw = view.getTxtSearch().getText().trim().toLowerCase(Locale.ROOT);
         if (kw.isEmpty()) {
@@ -95,11 +106,11 @@ public class KhachHangController {
         ).collect(Collectors.toList());
         fillTable(filtered);
     }
-    
 
     private static boolean contains(String s, String kw) {
         return s != null && s.toLowerCase(Locale.ROOT).contains(kw);
     }
+
     private void onAdd() {
         Window window = SwingUtilities.getWindowAncestor(view);
         JFrame parent = (window instanceof JFrame) ? (JFrame) window : null;
@@ -153,7 +164,47 @@ public class KhachHangController {
         }
     }
 
-    /* =================== Helpers =================== */
+    private void onOrdersByCustomer() {
+        JTable tbl = view.getTbl(); // bảng khách hàng trong panel
+        int viewRow = tbl.getSelectedRow();
+        if (viewRow == -1) {
+            JOptionPane.showMessageDialog(view, "Hãy chọn 1 khách hàng trước.");
+            return;
+        }
+        int row = tbl.convertRowIndexToModel(viewRow);
+        String maKH = (String) model.getValueAt(row, 0); // giả sử cột 0 = MaKH
+        String tenKH = (String) model.getValueAt(row, 1); // giả sử cột 1 = TenKH
+
+        try {
+            List<OrderOfCustomerDTO> orders = dao.getOrdersByCustomer(maKH);
+            Window w = SwingUtilities.getWindowAncestor(view);
+            JFrame parent = (w instanceof JFrame) ? (JFrame) w : null;
+            new KhachHang_Orders_Dialog(parent, tenKH, orders).setVisible(true);
+        } catch (DAOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(view, "Không thể lấy đơn hàng của khách " + maKH + "\n" + ex.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    // lấy ra top khách hàng 
+    private void onTopCustomers() {
+        LocalDate to = LocalDate.now();
+        LocalDate from = to.minusDays(90); // 90 ngày từ hôm nay
+
+        Window w = SwingUtilities.getWindowAncestor(view);
+        JFrame parent = (w instanceof JFrame) ? (JFrame) w : null;
+
+        // có thể sau này dùng FilterDialog, giờ mình fix cững Top 10, 90 ngày gần nhất
+        try {
+            List<TopCustomerDTO> data = dao.getTopCustomers(from, to, 10, true); // top 10
+            new KhachHang_TopCustomers_Dialog(parent, data, from, to).setVisible(true); 
+        } catch (DAOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(view, "Không thể lấy Top khách hàng\n" + ex.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void fillTable(List<KhachHang> list) {
         model.setRowCount(0);
         for (KhachHang kh : list) {

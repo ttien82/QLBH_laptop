@@ -15,6 +15,7 @@ D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlb
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Them.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\KhachHang.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\Quyen.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_TopCustomers_Dialog.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\QLBHlaptop.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietDonHang.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhanVienDAO.java
@@ -42,6 +43,7 @@ D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlb
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_TopSale_Dialog.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Them.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Orders_Dialog.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\MainFrame.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\DatabaseConnection.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\QuyenController.java
@@ -50,12 +52,14 @@ D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlb
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\DonHang.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhaCungCapController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\OrderOfCustomerDTO.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\TaiKhoanController.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\PhieuNhapController.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\QuyenDAO.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhaCungCap.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoginController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerDTO.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoaiSPController.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietPhieuNhap.java
 D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.java

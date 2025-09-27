@@ -5,18 +5,53 @@
 package com.qlbh.qlbhlaptop.view;
 
 public class KhachHangPanel extends javax.swing.JPanel {
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(KhachHangPanel.class.getName());
+
     public KhachHangPanel() {
         initComponents();
     }
-    public javax.swing.JTable getTbl()        { return tbl; }
-    public javax.swing.JButton getBtnAdd()    { return btnAdd; }
-    public javax.swing.JButton getBtnEdit()   { return btnEdit; }
-    public javax.swing.JButton getBtnDelete() { return btnDelete; }
-    public javax.swing.JButton getBtnSearch() { return btnSearch; }
 
-    public javax.swing.JTextField getTxtSearch() { return lblSearch; }
-    public void setTableModel(javax.swing.table.TableModel model) { tbl.setModel(model); }
+    public javax.swing.JTable getTbl() {
+        return tbl;
+    }
+
+    public javax.swing.JButton getBtnAdd() {
+        return btnAdd1;
+    }
+
+    public javax.swing.JButton getBtnEdit() {
+        return btnEdit;
+    }
+
+    public javax.swing.JButton getBtnDelete() {
+        return btnDelete;
+    }
+    
+    public javax.swing.JButton getBtnReload() {
+    return btnOnLoad;
+}
+
+    public javax.swing.JButton getBtnSearch() {
+        return btnSearch;
+    }
+
+    public javax.swing.JButton getBtnOrdersByCustomer() {
+        return btnOrdersByCustomer;
+    }
+
+    public javax.swing.JButton getBtnTopCustomers() {
+        return btnTopCustomers;
+    }
+
+    public javax.swing.JTextField getTxtSearch() {
+        return lblSearch;
+    }
+
+    public void setTableModel(javax.swing.table.TableModel model) {
+        tbl.setModel(model);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,7 +60,9 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnTopSaleByEmp = new javax.swing.JButton();
+        btnOrdersByCustomer = new javax.swing.JButton();
+        btnTopCustomers = new javax.swing.JButton();
+        btnOnLoad = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
@@ -33,7 +70,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         lblSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        btnAdd = new javax.swing.JButton();
+        btnAdd1 = new javax.swing.JButton();
 
         btnDelete.setBackground(new java.awt.Color(255, 102, 102));
         btnDelete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -45,13 +82,26 @@ public class KhachHangPanel extends javax.swing.JPanel {
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Cập nhật");
 
-        btnTopSaleByEmp.setBackground(new java.awt.Color(255, 192, 255));
-        btnTopSaleByEmp.setText("Top Doanh Thu");
-        btnTopSaleByEmp.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdersByCustomer.setBackground(new java.awt.Color(102, 255, 102));
+        btnOrdersByCustomer.setText("Đơn của KH");
+        btnOrdersByCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTopSaleByEmpActionPerformed(evt);
+                btnOrdersByCustomerActionPerformed(evt);
             }
         });
+
+        btnTopCustomers.setBackground(new java.awt.Color(102, 255, 102));
+        btnTopCustomers.setText("Top KH");
+        btnTopCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTopCustomersActionPerformed(evt);
+            }
+        });
+
+        btnOnLoad.setBackground(new java.awt.Color(51, 153, 0));
+        btnOnLoad.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnOnLoad.setForeground(new java.awt.Color(255, 255, 255));
+        btnOnLoad.setText("Tải lại");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -59,8 +109,12 @@ public class KhachHangPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnTopSaleByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnOrdersByCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnTopCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnOnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -73,7 +127,9 @@ public class KhachHangPanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTopSaleByEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOrdersByCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTopCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -120,7 +176,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -157,10 +213,10 @@ public class KhachHangPanel extends javax.swing.JPanel {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        btnAdd.setBackground(new java.awt.Color(0, 204, 204));
-        btnAdd.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Thêm");
+        btnAdd1.setBackground(new java.awt.Color(0, 204, 204));
+        btnAdd1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd1.setText("Thêm");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -168,14 +224,15 @@ public class KhachHangPanel extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -210,20 +267,26 @@ public class KhachHangPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnTopSaleByEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopSaleByEmpActionPerformed
+    private void btnOrdersByCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdersByCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTopSaleByEmpActionPerformed
+    }//GEN-LAST:event_btnOrdersByCustomerActionPerformed
 
-        public static void main(String args[]) {
+    private void btnTopCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopCustomersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTopCustomersActionPerformed
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new KhachHangPanel().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnOnLoad;
+    private javax.swing.JButton btnOrdersByCustomer;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnTopSaleByEmp;
+    private javax.swing.JButton btnTopCustomers;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
