@@ -8,6 +8,7 @@ com\qlbh\qlbhlaptop\view\SanPhamPanel.class
 com\qlbh\qlbhlaptop\controller\DonHangController.class
 com\qlbh\qlbhlaptop\controller\ChiTietDonHangController.class
 com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.class
+com\qlbh\qlbhlaptop\view\ChiTietDonHangPanel$1.class
 com\qlbh\qlbhlaptop\dao\SanPhamDAO.class
 com\qlbh\qlbhlaptop\view\LoaiSPPanel$1.class
 com\qlbh\qlbhlaptop\controller\SanPhamController.class
@@ -72,6 +73,7 @@ com\qlbh\qlbhlaptop\controller\TaiKhoanController$1.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController$4.class
 com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.class
 com\qlbh\qlbhlaptop\model\PhieuNhap.class
+com\qlbh\qlbhlaptop\view\NewJFrame.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel$3.class
 com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.class
 com\qlbh\qlbhlaptop\view\SanPhamPanel$1.class

@@ -10,9 +10,7 @@ import com.qlbh.qlbhlaptop.controller.QuyenController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
-import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -26,8 +24,10 @@ public class MainFrame extends JFrame {
     private JLabel lblUser, lblRole;
     private TaiKhoan loggedInUser;
 
+    // Ánh xạ tên menu với tên lớp và Consumer để khởi tạo Controller
     private static final Map<String, PanelInfo> managedPanels = new LinkedHashMap<>();
 
+    // Lớp nội bộ để chứa thông tin Panel và Controller
     private static class PanelInfo {
         String panelClassName;
         Consumer<JPanel> controllerInitializer;
@@ -39,9 +39,7 @@ public class MainFrame extends JFrame {
     }
 
     static {
-        managedPanels.put("Chi tiết đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel",
-        panel -> new ChiTietDonHangController((ChiTietDonHangPanel) panel)));
-
+        // Ánh xạ các panel và controller tương ứng
         managedPanels.put("Nhân viên", new PanelInfo("com.qlbh.qlbhlaptop.view.NhanVienPanel",
                 panel -> new NhanVienController((NhanVienPanel) panel)));
         managedPanels.put("Khách hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.KhachHangPanel",
@@ -75,9 +73,11 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // ===== MENU BAR =====
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
+        // Menu Hệ thống
         JMenu menuSystem = new JMenu("Hệ thống");
         menuSystem.setMnemonic(KeyEvent.VK_H);
         JMenuItem menuItemLogout = new JMenuItem("Đăng xuất");
@@ -87,28 +87,34 @@ public class MainFrame extends JFrame {
         menuSystem.addSeparator();
         menuSystem.add(menuItemExit);
 
+        // Menu Quản lý
         JMenu menuManage = new JMenu("Quản lý");
         menuManage.setMnemonic(KeyEvent.VK_Q);
 
+        // Tạo và thêm menu item một cách tự động từ HashMap
         for (String title : managedPanels.keySet()) {
             JMenuItem item = new JMenuItem(title);
             item.addActionListener(e -> openManagedPanel(title));
             menuManage.add(item);
         }
 
+        // Menu Trợ giúp
         JMenu menuHelp = new JMenu("Trợ giúp");
         menuHelp.setMnemonic(KeyEvent.VK_T);
         JMenuItem menuItemAbout = new JMenuItem("Giới thiệu");
+
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuSystem);
         menuBar.add(menuManage);
         menuBar.add(menuHelp);
 
+        // ===== MAIN CONTENT =====
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
         add(tabbedPane, BorderLayout.CENTER);
 
+        // ===== STATUS BAR =====
         JPanel pnlStatus = new JPanel(new BorderLayout());
         pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
@@ -126,6 +132,7 @@ public class MainFrame extends JFrame {
         pnlStatus.add(rightStatus, BorderLayout.EAST);
         add(pnlStatus, BorderLayout.SOUTH);
 
+        // ===== XỬ LÝ SỰ KIỆN =====
         menuItemExit.addActionListener(e -> {
             int choice = JOptionPane.showConfirmDialog(MainFrame.this,
                     "Bạn có chắc chắn muốn thoát khỏi ứng dụng?",
@@ -149,6 +156,7 @@ public class MainFrame extends JFrame {
                 "Giới thiệu", JOptionPane.INFORMATION_MESSAGE));
     }
 
+    // Phương thức chung để mở panel
     private void openManagedPanel(String title) {
         int index = tabbedPane.indexOfTab(title);
         if (index != -1) {

@@ -7,18 +7,15 @@ public class ChiTietDonHang {
     private String maSP;
     private int soLuong;
     private BigDecimal donGia;
-    
-    public ChiTietDonHang() {
-        
-    }
-    
+
+    public ChiTietDonHang() {}
+
     public ChiTietDonHang(String maDH, String maSP, int soLuong, BigDecimal donGia) {
         this.maDH = maDH;
         this.maSP = maSP;
         this.soLuong = soLuong;
         this.donGia = donGia;
     }
-
 
     public String getMaDH() {
         return maDH;
@@ -51,15 +48,4 @@ public class ChiTietDonHang {
     public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
-    
-    @Override
-    public String toString() {
-        return "ChiTietDonHang{" +
-            "maDH='" + maDH + '\'' +
-            ", maSP='" + maSP + '\'' +
-            ", soLuong=" + soLuong +
-            ", donGia=" + donGia +
-            '}';
-    }
 }
-

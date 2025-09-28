@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 
+
 public class DatabaseConnection {
     // Đọc thông tin từ file config.properties
     private static Properties loadProperties() {
