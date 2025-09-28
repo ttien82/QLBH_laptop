@@ -12,10 +12,6 @@ import java.awt.event.ActionListener;
 public class QLBHlaptop {
 
     public static void main(String[] args) {
-        //SanPhamFrame.main(args);
-        //KhachHangFrame.main(args);
-        //LoaiSPFrame.main(args);
-        //NhaCungCapFrame.main(args);
-        //NhanVienFrame.main(args);
+
     }
 }

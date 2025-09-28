@@ -1,58 +1,82 @@
 package com.qlbh.qlbhlaptop.view;
 
+import com.qlbh.qlbhlaptop.dto.TaiKhoanDTO;
 import com.qlbh.qlbhlaptop.model.NhanVien;
 import com.qlbh.qlbhlaptop.model.Quyen;
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-/**
- * Giao diện quản lý Tài Khoản.
- */
 public class TaiKhoanPanel extends JPanel {
+    // --- Components ---
+    private JTable tblTaiKhoan;
+    private DefaultTableModel tableModel;
+    private JButton btnAdd, btnDelete, btnRefresh, btnSave, btnHuy, btnTim;
 
-    // Components của thanh công cụ
-    private final JButton btnAdd;
-    private final JButton btnEdit;
-    private final JButton btnDelete;
-    private final JButton btnRefresh;
+    private JTextField txtMaTK, txtUsername, txtTim ;
+    private JPasswordField pwdPassword;
+    private JComboBox<String> cboNhanVien, cboQuyen;
 
-    // Components của bảng dữ liệu
-    private final JTable tblTaiKhoan;
-    private final DefaultTableModel tableModel;
+    // Map cần thiết cho việc ánh xạ (được Controller truyền vào)
+    private Map<String, String> nhanVienMap; // TenNV -> MaNV
+    private Map<String, String> quyenMap;     // TenQuyen -> MaQuyen
 
-    // Components của Form chi tiết (JDialog)
-    private final JDialog detailDialog;
-    private final JTextField txtMaTK;
-    private final JTextField txtUsername;
-    private final JPasswordField pwdPassword;
-    private final JComboBox<String> cboNhanVien;
-    private final JComboBox<String> cboQuyen;
-    private final JButton btnLuu;
-    private final JButton btnHuy;
-
-    private boolean isAdding;
-    private final JLabel lblLoading;
-
+    // --- Constructor & Setup ---
     public TaiKhoanPanel() {
-        this.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
+        
+        JPanel pnlTimKiem = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        txtTim = new JTextField(25);
+        btnTim = new JButton("Tìm kiếm");
+        //btnTim.setIcon(new ImageIcon(getClass().getResource("/images/search_icon.png"))); // Nếu có icon    
+        
+        pnlTimKiem.add(new JLabel("Tìm kiếm:"));
+        pnlTimKiem.add(txtTim);
+        pnlTimKiem.add(btnTim);
+        
+        add(pnlTimKiem, BorderLayout.NORTH);
 
-        // Tạo và thêm thanh công cụ
-        JPanel toolBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        btnAdd = createButton("Thêm", "src/main/resources/icons/add.png");
-        btnEdit = createButton("Sửa", "src/main/resources/icons/edit.png");
-        btnDelete = createButton("Xóa", "src/main/resources/icons/delete.png");
-        btnRefresh = createButton("Làm mới", "src/main/resources/icons/refresh.png");
-        toolBarPanel.add(btnAdd);
-        toolBarPanel.add(btnEdit);
-        toolBarPanel.add(btnDelete);
-        toolBarPanel.add(btnRefresh);
-        this.add(toolBarPanel, BorderLayout.NORTH);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitPane.setResizeWeight(0.7); 
+        
+        JPanel tableContainer = new JPanel(new BorderLayout());
+        tableContainer.add(createToolbar(), BorderLayout.NORTH);
+        tableContainer.add(createTablePanel(), BorderLayout.CENTER);
+        
+        splitPane.setLeftComponent(tableContainer);
+        splitPane.setRightComponent(createDetailFormPanel());
+        
+        add(splitPane, BorderLayout.CENTER);
+    }
 
-        // Tạo và thêm bảng dữ liệu
-        String[] columnNames = {"Mã tài khoản", "Tên đăng nhập", "Mã nhân viên", "Quyền"};
+    private JPanel createToolbar() {
+        JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        btnAdd = new JButton("Thêm Mới");
+        btnDelete = new JButton("Xóa");
+        btnRefresh = new JButton("Làm mới");
+        btnSave = new JButton("LƯU");
+        btnHuy = new JButton("HỦY");
+
+        btnSave.setEnabled(false); 
+
+        toolbar.add(btnAdd);
+        toolbar.add(btnDelete);
+        toolbar.add(btnRefresh);
+        toolbar.add(new JSeparator(JSeparator.VERTICAL));
+        toolbar.add(btnSave);
+        toolbar.add(btnHuy);
+        
+        return toolbar;
+    }
+
+    private JScrollPane createTablePanel() {
+        String[] columnNames = {"Mã TK", "Tài Khoản", "Tên NV", "Tên quyền"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -60,170 +84,145 @@ public class TaiKhoanPanel extends JPanel {
             }
         };
         tblTaiKhoan = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(tblTaiKhoan);
-        this.add(scrollPane, BorderLayout.CENTER);
-
-        // Khởi tạo dialog chi tiết
-        detailDialog = new JDialog();
-        detailDialog.setTitle("Thông tin Tài khoản");
-        detailDialog.setSize(450, 350);
-        detailDialog.setModal(true);
-        detailDialog.setLocationRelativeTo(this);
-
-        JPanel detailPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        // Mã tài khoản
-        gbc.gridx = 0; gbc.gridy = 0;
-        detailPanel.add(new JLabel("Mã TK:"), gbc);
-        gbc.gridx = 1;
-        txtMaTK = new JTextField(20);
-        txtMaTK.setEditable(false);
-        detailPanel.add(txtMaTK, gbc);
-
-        // Tên đăng nhập
-        gbc.gridx = 0; gbc.gridy = 1;
-        detailPanel.add(new JLabel("Tên đăng nhập:"), gbc);
-        gbc.gridx = 1;
-        txtUsername = new JTextField(20);
-        detailPanel.add(txtUsername, gbc);
-
-        // Mật khẩu
-        gbc.gridx = 0; gbc.gridy = 2;
-        detailPanel.add(new JLabel("Mật khẩu:"), gbc);
-        gbc.gridx = 1;
-        pwdPassword = new JPasswordField(20);
-        detailPanel.add(pwdPassword, gbc);
-
-        // Mã Nhân viên
-        gbc.gridx = 0; gbc.gridy = 3;
-        detailPanel.add(new JLabel("Mã nhân viên"), gbc);
-        gbc.gridx = 1;
-        cboNhanVien = new JComboBox<>();
-        detailPanel.add(cboNhanVien, gbc);
-
-        // Quyền
-        gbc.gridx = 0; gbc.gridy = 4;
-        detailPanel.add(new JLabel("Quyền:"), gbc);
-        gbc.gridx = 1;
-        cboQuyen = new JComboBox<>();
-        detailPanel.add(cboQuyen, gbc);
-
-        // Panel chứa nút Lưu và Hủy
-        JPanel dialogButtonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        btnLuu = createButton("Lưu", "src/main/resources/icons/save.png");
-        btnHuy = createButton("Hủy", "src/main/resources/icons/cancel.png");
-        dialogButtonPanel.add(btnLuu);
-        dialogButtonPanel.add(btnHuy);
+        tblTaiKhoan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        detailDialog.add(detailPanel, BorderLayout.CENTER);
-        detailDialog.add(dialogButtonPanel, BorderLayout.SOUTH);
-
-        // Loading label
-        lblLoading = new JLabel("Đang tải dữ liệu...", SwingConstants.CENTER);
-        lblLoading.setFont(new Font("Arial", Font.ITALIC, 16));
-        lblLoading.setVisible(false);
-        this.add(lblLoading, BorderLayout.SOUTH);
+        return new JScrollPane(tblTaiKhoan);
     }
     
-    // Phương thức tạo nút với icon
-    private JButton createButton(String text, String iconPath) {
-        JButton button = new JButton(text);
-        try {
-            ImageIcon icon = new ImageIcon(iconPath);
-            Image image = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-            button.setIcon(new ImageIcon(image));
-        } catch (Exception e) {
-            // Xử lý nếu không tìm thấy icon
-        }
-        return button;
+    private JPanel createDetailFormPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(BorderFactory.createTitledBorder("Thông tin chi tiết tài khoản"));
+        
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        txtMaTK = new JTextField(20);
+        txtUsername = new JTextField(20);
+        pwdPassword = new JPasswordField(20);
+        cboNhanVien = new JComboBox<>();
+        cboQuyen = new JComboBox<>();
+        
+        txtMaTK.setEnabled(false);
+
+        // Thêm các trường vào formPanel (Giữ nguyên layout trước đó)
+        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0; formPanel.add(new JLabel("Mã TK:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 0; gbc.weightx = 1; formPanel.add(txtMaTK, gbc);
+        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0; formPanel.add(new JLabel("Tài khoản:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 1; formPanel.add(txtUsername, gbc);
+        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0; formPanel.add(new JLabel("Mật khẩu:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 2; gbc.weightx = 1; formPanel.add(pwdPassword, gbc);
+        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0; formPanel.add(new JLabel("Nhân Viên:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 3; gbc.weightx = 1; formPanel.add(cboNhanVien, gbc);
+        gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0; formPanel.add(new JLabel("Quyền:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 4; gbc.weightx = 1; formPanel.add(cboQuyen, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 1; gbc.weighty = 1;
+        formPanel.add(new JPanel(), gbc);
+        
+        panel.add(formPanel, BorderLayout.NORTH);
+        return panel;
     }
 
-    // Các phương thức public để Controller sử dụng
+    // ==========================================================
+    // --- PUBLIC GETTERS / SETTERS (Giao tiếp với Controller) ---
+    // ==========================================================
+
+    // --- 1. Getters cho Components (Controller dùng để gắn sự kiện) ---
     public JButton getBtnAdd() { return btnAdd; }
-    public JButton getBtnEdit() { return btnEdit; }
     public JButton getBtnDelete() { return btnDelete; }
     public JButton getBtnRefresh() { return btnRefresh; }
-    public JButton getBtnLuu() { return btnLuu; }
+    public JButton getBtnLuu() { return btnSave; }
     public JButton getBtnHuy() { return btnHuy; }
+    public JButton getBtnTim()  { return btnTim; }
     public JTable getTblTaiKhoan() { return tblTaiKhoan; }
-    public boolean isAdding() { return isAdding; }
-    public void showDetailDialog(boolean isAdding) {
-        this.isAdding = isAdding;
-        detailDialog.setTitle(isAdding ? "Thêm Tài khoản mới" : "Sửa Tài khoản");
-        txtUsername.setEditable(isAdding);
-        detailDialog.setVisible(true);
+    public JTextField getTxtMaTK() { return txtMaTK; }
+    public JTextField getTxtTim() {return txtTim;}
+    public JPasswordField getPwdPassword() { return pwdPassword; }
+    
+    /** Gắn ListSelectionListener do Controller cung cấp */
+    public void addTableSelectionListener(ListSelectionListener listener) {
+        tblTaiKhoan.getSelectionModel().addListSelectionListener(listener);
     }
-    public void hideDetailDialog() { detailDialog.setVisible(false); }
-    public void showLoading(boolean show) { lblLoading.setVisible(show); }
-
-    // Phương thức điền dữ liệu vào bảng
-    public void fillTable(List<TaiKhoan> danhSachTaiKhoan) {
+    
+    // --- 2. Setter để đổ dữ liệu từ Controller vào View ---
+    
+    /** Đổ dữ liệu danh sách DTO vào bảng. */
+    public void fillTable(List<TaiKhoanDTO> dsTK) { 
         tableModel.setRowCount(0);
-        for (TaiKhoan tk : danhSachTaiKhoan) {
+        for (TaiKhoanDTO dto : dsTK) {
             tableModel.addRow(new Object[]{
-                tk.getMaTK(), 
-                tk.getTenDangNhap(), 
-                tk.getMaNV(), 
-                tk.getMaQuyen()
+                dto.getMaTK(), dto.getTenDangNhap(), dto.getTenNV(), dto.getTenQuyen()
             });
         }
     }
     
-    // Phương thức điền dữ liệu vào form chi tiết
-    public void setDetailForm(TaiKhoan tk) {
+    /** Đổ dữ liệu Nhân Viên vào ComboBox và lưu Map ánh xạ. */
+    public void loadNhanVienComboBox(List<NhanVien> dsNV) { 
+        cboNhanVien.removeAllItems();
+        // Lưu Map để ánh xạ ngược trong getTaiKhoanFromForm()
+        nhanVienMap = dsNV.stream().collect(
+            Collectors.toMap(NhanVien::getTenNV, NhanVien::getMaNV));
+        dsNV.forEach(nv -> cboNhanVien.addItem(nv.getTenNV()));
+    }
+    
+    /** Đổ dữ liệu Quyền vào ComboBox và lưu Map ánh xạ. */
+    public void loadQuyenComboBox(List<Quyen> dsQ) { 
+        cboQuyen.removeAllItems();
+        // Lưu Map để ánh xạ ngược trong getTaiKhoanFromForm()
+        quyenMap = dsQ.stream().collect(
+            Collectors.toMap(Quyen::getTenQuyen, Quyen::getMaQuyen));
+        dsQ.forEach(q -> cboQuyen.addItem(q.getTenQuyen()));
+    }
+
+    /** Điền thông tin từ đối tượng TaiKhoan vào Form. */
+    public void setDetailForm(TaiKhoan tk) { 
         txtMaTK.setText(tk.getMaTK());
         txtUsername.setText(tk.getTenDangNhap());
         pwdPassword.setText(""); 
-        cboNhanVien.setSelectedItem(tk.getMaNV());
-        cboQuyen.setSelectedItem(tk.getMaQuyen());
+        
+        // Dùng Map để tìm tên tương ứng từ Mã
+        String tenNV = nhanVienMap.entrySet().stream()
+            .filter(entry -> entry.getValue().equals(tk.getMaNV()))
+            .map(Map.Entry::getKey)
+            .findFirst().orElse(null);
+        if (tenNV != null) cboNhanVien.setSelectedItem(tenNV);
+        
+        String tenQuyen = quyenMap.entrySet().stream()
+            .filter(entry -> entry.getValue().equals(tk.getMaQuyen()))
+            .map(Map.Entry::getKey)
+            .findFirst().orElse(null);
+        if (tenQuyen != null) cboQuyen.setSelectedItem(tenQuyen);
+        
+        btnSave.setEnabled(true);
     }
-    
-    // Phương thức lấy dữ liệu từ form chi tiết
-    public TaiKhoan getTaiKhoanFromDetailForm() {
-        TaiKhoan tk = new TaiKhoan();
-        if (!isAdding) {
-            tk.setMaTK(txtMaTK.getText());
-        }
-        tk.setTenDangNhap(txtUsername.getText());
-        tk.setMatKhau(new String(pwdPassword.getPassword()));
-        tk.setMaNV((String) cboNhanVien.getSelectedItem());
-        tk.setMaQuyen((String) cboQuyen.getSelectedItem());
-        return tk;
-    }
-    
-    // Phương thức lấy dữ liệu từ hàng đã chọn
-    public TaiKhoan getTaiKhoanFromSelectedRow(int row) {
-        TaiKhoan tk = new TaiKhoan();
-        tk.setMaTK((String) tableModel.getValueAt(row, 0));
-        tk.setTenDangNhap((String) tableModel.getValueAt(row, 1));
-        tk.setMaNV((String) tableModel.getValueAt(row, 2));
-        tk.setMaQuyen((String) tableModel.getValueAt(row, 3));
-        return tk;
-    }
-    
-     //Phương thức load dữ liệu cho JComboBox NhanVien
-    public void loadNhanVienComboBox(List<NhanVien> danhSachNhanVien) {
-        cboNhanVien.removeAllItems();
-        for (NhanVien nv : danhSachNhanVien) {
-            cboNhanVien.addItem(nv.getMaNV());
-        }
-    }
-    
-    // Phương thức load dữ liệu cho JComboBox Quyen
-    public void loadQuyenComboBox(List<Quyen> danhSachQuyen) {
-        cboQuyen.removeAllItems();
-        for (Quyen q : danhSachQuyen) {
-            cboQuyen.addItem(q.getMaQuyen());
-        }
-    }
-    
-    // Để dọn dẹp các trường khi thêm mới
-    public void clearDetailForm() {
+
+    /** Xóa trắng Form Chi Tiết. */
+    public void clearDetailForm() { 
+        tblTaiKhoan.clearSelection();
         txtMaTK.setText("");
         txtUsername.setText("");
         pwdPassword.setText("");
+        if (cboNhanVien.getItemCount() > 0) cboNhanVien.setSelectedIndex(0);
+        if (cboQuyen.getItemCount() > 0) cboQuyen.setSelectedIndex(0);
+        btnSave.setEnabled(false);
+    }
+
+    // --- 3. Getter để Controller lấy dữ liệu từ View ---
+
+    /** Lấy dữ liệu từ Form để tạo đối tượng TaiKhoan. */
+    public TaiKhoan getTaiKhoanFromForm() { 
+        String maTK = txtMaTK.getText().trim();
+        String username = txtUsername.getText().trim();
+        String password = new String(pwdPassword.getPassword());
+        String tenNV = (String) cboNhanVien.getSelectedItem();
+        String tenQuyen = (String) cboQuyen.getSelectedItem();
+        
+        // Ánh xạ ngược từ Tên -> Mã để tạo đối tượng TaiKhoan
+        String maNV = nhanVienMap != null && tenNV != null ? nhanVienMap.get(tenNV) : null;
+        String maQuyen = quyenMap != null && tenQuyen != null ? quyenMap.get(tenQuyen) : null;
+        
+        return new TaiKhoan(maTK, maNV, username, password, maQuyen);
     }
 }
