@@ -1,0 +1,2 @@
+"target/"  rm -r --cached target
+"target/"  rm --cached QLBHlaptop/target/classes/com/qlbh/qlbhlaptop/view/MainFrame$PanelInfo.class

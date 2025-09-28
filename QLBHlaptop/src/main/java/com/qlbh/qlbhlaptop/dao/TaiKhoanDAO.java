@@ -2,6 +2,7 @@ package com.qlbh.qlbhlaptop.dao;
 
 import com.qlbh.qlbhlaptop.config.DatabaseConnection;
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
+import com.qlbh.qlbhlaptop.dto.TaiKhoanDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -222,6 +223,106 @@ public class TaiKhoanDAO {
         }
         return false;
     }
+    
+    /**
+    * Tìm kiếm tài khoản dựa trên từ khóa (TenDangNhap, TenNV, TenQuyen).
+    * @param keyword Từ khóa tìm kiếm.
+    * @return Danh sách TaiKhoanDTO phù hợp.
+    */
+    public List<TaiKhoanDTO> TimDTO(String keyword) {
+        List<TaiKhoanDTO> list = new ArrayList<>();
+        String searchPattern = "%" + keyword + "%";
+
+        // Sử dụng JOIN để lấy TenNV và TenQuyen, sau đó tìm kiếm LIKE
+        String sql = "SELECT tk.MaTK, tk.TenDangNhap, nv.TenNV, q.TenQuyen " +
+                     "FROM TaiKhoan tk " +
+                     "JOIN NhanVien nv ON tk.MaNV = nv.MaNV " +
+                     "JOIN Quyen q ON tk.MaQuyen = q.MaQuyen " +
+                     "WHERE tk.TenDangNhap LIKE ? OR nv.TenNV LIKE ? OR q.TenQuyen LIKE ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // Đặt tham số cho 3 điều kiện LIKE
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    TaiKhoanDTO dto = new TaiKhoanDTO(
+                        rs.getString("MaTK"),
+                        rs.getString("TenDangNhap"),
+                        rs.getString("TenNV"),
+                        rs.getString("TenQuyen")
+                    );
+                    list.add(dto);
+                }
+            }
+
+        } catch (SQLException e) {
+            // Sử dụng DAOException của bạn
+            throw new DAOException("Lỗi khi tìm kiếm DTO tài khoản", e);  
+        }
+        return list;
+    }
+
+    public List<TaiKhoanDTO> getAllDTO(){
+    List<TaiKhoanDTO> list = new ArrayList<>();
+    String sql = "SELECT tk.MaTK, tk.TenDangNhap, nv.TenNV, q.TenQuyen " +
+                 "FROM TaiKhoan tk " +
+                 "JOIN NhanVien nv ON tk.MaNV = nv.MaNV " +
+                 "JOIN Quyen q ON tk.MaQuyen = q.MaQuyen";
+
+    try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            TaiKhoanDTO dto = new TaiKhoanDTO(
+                rs.getString("MaTK"),
+                rs.getString("TenDangNhap"),
+                rs.getString("TenNV"),
+                rs.getString("TenQuyen")
+            );
+            list.add(dto);
+        }
+
+    } catch (SQLException e) {
+        throw new DAOException("Lỗi khi lấy danh sách DTO tài khoản", e); 
+    }
+    return list;
+    }
+    
+    public TaiKhoan login(String username, String password){
+        String sql = "SELECT * FROM TaiKhoan WHERE TenDangNhap = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String hashedPassword = rs.getString("MatKhau");
+
+                // So khớp mật khẩu bằng BCrypt
+                if (BCrypt.checkpw(password, hashedPassword)) {
+                    TaiKhoan tk = new TaiKhoan();
+                    tk.setMaTK(rs.getString("MaTK"));
+                    tk.setMaNV(rs.getString("MaNV"));
+                    tk.setTenDangNhap(rs.getString("TenDangNhap"));
+                    tk.setMatKhau(hashedPassword);
+                    tk.setMaQuyen(rs.getString("MaQuyen"));
+                    return tk;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // login thất bại
+    }
+    
 
     /**
      * Phương thức main để kiểm tra chức năng của lớp TaiKhoanDAO.
