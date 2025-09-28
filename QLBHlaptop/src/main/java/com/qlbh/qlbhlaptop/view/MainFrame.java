@@ -8,6 +8,8 @@ import com.qlbh.qlbhlaptop.controller.NhanVienController;
 import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
+import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
+import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
@@ -26,9 +28,9 @@ public class MainFrame extends JFrame {
     private JMenu menuManager;
     
     // Ánh xạ tên menu với tên lớp và Consumer để khởi tạo Controller
+
     private static final Map<String, PanelInfo> managedPanels = new LinkedHashMap<>();
-    
-    // Lớp nội bộ để chứa thông tin Panel và Controller
+
     private static class PanelInfo {
         String panelClassName;
         Consumer<JPanel> controllerInitializer;
@@ -38,22 +40,29 @@ public class MainFrame extends JFrame {
             this.controllerInitializer = controllerInitializer;
         }
     }
-    
+
     static {
-        // Ánh xạ các panel và controller tương ứng
+        managedPanels.put("Chi tiết đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel",
+        panel -> new ChiTietDonHangController((ChiTietDonHangPanel) panel)));
+
         managedPanels.put("Nhân viên", new PanelInfo("com.qlbh.qlbhlaptop.view.NhanVienPanel",
                 panel -> new NhanVienController((NhanVienPanel) panel)));
-        managedPanels.put("Khách hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.KhachHangPanel", 
+        managedPanels.put("Khách hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.KhachHangPanel",
                 panel -> new KhachHangController((KhachHangPanel) panel)));
-        managedPanels.put("Sản phẩm", new PanelInfo("com.qlbh.qlbhlaptop.view.SanPhamPanel", 
+        managedPanels.put("Sản phẩm", new PanelInfo("com.qlbh.qlbhlaptop.view.SanPhamPanel",
                 panel -> new SanPhamController((SanPhamPanel) panel)));
-        managedPanels.put("Loại sản phẩm", new PanelInfo("com.qlbh.qlbhlaptop.view.LoaiSPPanel", 
+        managedPanels.put("Loại sản phẩm", new PanelInfo("com.qlbh.qlbhlaptop.view.LoaiSPPanel",
                 panel -> new LoaiSPController((LoaiSPPanel) panel)));
-        managedPanels.put("Nhà cung cấp", new PanelInfo("com.qlbh.qlbhlaptop.view.NhaCungCapPanel", 
+        managedPanels.put("Nhà cung cấp", new PanelInfo("com.qlbh.qlbhlaptop.view.NhaCungCapPanel",
                 panel -> new NhaCungCapController((NhaCungCapPanel) panel)));
-        managedPanels.put("Đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.DonHangPanel", 
+        managedPanels.put("Đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.DonHangPanel",
                 panel -> new DonHangController((DonHangPanel) panel)));
-        managedPanels.put("Phiếu nhập", new PanelInfo("com.qlbh.qlbhlaptop.view.PhieuNhapPanel", 
+
+        // ✅ Thêm tab Chi tiết đơn hàng
+        managedPanels.put("Chi tiết đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel",
+                panel -> new ChiTietDonHangController((ChiTietDonHangPanel) panel)));
+
+        managedPanels.put("Phiếu nhập", new PanelInfo("com.qlbh.qlbhlaptop.view.PhieuNhapPanel",
                 panel -> new PhieuNhapController((PhieuNhapPanel) panel)));
         managedPanels.put("Tài khoản", new PanelInfo("com.qlbh.qlbhlaptop.view.TaiKhoanPanel",
                 panel -> new TaiKhoanController((TaiKhoanPanel) panel)));
@@ -71,11 +80,9 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // ===== MENU BAR =====
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        // Menu Hệ thống
         JMenu menuSystem = new JMenu("Hệ thống");
         menuSystem.setMnemonic(KeyEvent.VK_H);
         JMenuItem menuItemLogout = new JMenuItem("Đăng xuất");
@@ -90,17 +97,16 @@ public class MainFrame extends JFrame {
         menuManager.setMnemonic(KeyEvent.VK_Q);
         
         // Tạo và thêm menu item một cách tự động từ HashMap
+
         for (String title : managedPanels.keySet()) {
             JMenuItem item = new JMenuItem(title);
             item.addActionListener(e -> openManagedPanel(title));
             menuManager.add(item);
         }
 
-        // Menu Trợ giúp
         JMenu menuHelp = new JMenu("Trợ giúp");
         menuHelp.setMnemonic(KeyEvent.VK_T);
         JMenuItem menuItemAbout = new JMenuItem("Giới thiệu");
-
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuSystem);
@@ -118,6 +124,9 @@ public class MainFrame extends JFrame {
         pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Thêm padding
         
         
+        JPanel pnlStatus = new JPanel(new BorderLayout());
+        pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
         lblUser = new JLabel("Người dùng: " + loggedInUser.getTenDangNhap());
         lblRole = new JLabel("Quyền: " + loggedInUser.getMaQuyen());
         lblTime = new JLabel();
@@ -132,6 +141,7 @@ public class MainFrame extends JFrame {
         lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         
         // Tạo panel để chứa vai trò và căn phải
+
         JPanel rightStatus = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         rightStatus.add(lblUser);
         rightStatus.add(new JLabel(" | "));
@@ -140,10 +150,8 @@ public class MainFrame extends JFrame {
         rightStatus.add(lblTime);
 
         pnlStatus.add(rightStatus, BorderLayout.EAST);
-
         add(pnlStatus, BorderLayout.SOUTH);
 
-        // ===== XỬ LÝ SỰ KIỆN =====
         menuItemExit.addActionListener(e -> {
             int choice = JOptionPane.showConfirmDialog(MainFrame.this,
                     "Bạn có chắc chắn muốn thoát khỏi ứng dụng?",
@@ -152,7 +160,7 @@ public class MainFrame extends JFrame {
                 System.exit(0);
             }
         });
-        
+
         menuItemLogout.addActionListener(e -> {
             int choice = JOptionPane.showConfirmDialog(MainFrame.this,
                     "Bạn có muốn đăng xuất không?",
@@ -163,7 +171,7 @@ public class MainFrame extends JFrame {
                 SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true)); // mở lại login
             }
         });
-        
+
         menuItemAbout.addActionListener(e -> JOptionPane.showMessageDialog(MainFrame.this,
                 "<html><p><b>Phần mềm Quản lý Bán hàng Laptop</b></p><p>Nhóm: 13</p>"
                         + "<p><b>Trần Nguyễn Như Ngọc: 24410204 </b></p><p>Bùi Anh Quốc: 24410218</p>"
@@ -209,21 +217,17 @@ public class MainFrame extends JFrame {
         try {
             PanelInfo info = managedPanels.get(title);
             JPanel panel;
-            
-            // Tìm constructor phù hợp (có hoặc không có tham số TaiKhoan)
+
             try {
-                // Thử constructor có tham số TaiKhoan
                 panel = (JPanel) Class.forName(info.panelClassName)
-                           .getDeclaredConstructor(TaiKhoan.class)
-                           .newInstance(loggedInUser);
+                        .getDeclaredConstructor(TaiKhoan.class)
+                        .newInstance(loggedInUser);
             } catch (NoSuchMethodException e) {
-                // Nếu không có, thử constructor không tham số
                 panel = (JPanel) Class.forName(info.panelClassName)
-                           .getDeclaredConstructor()
-                           .newInstance();
+                        .getDeclaredConstructor()
+                        .newInstance();
             }
-            
-            // Khởi tạo controller nếu có
+
             if (info.controllerInitializer != null) {
                 info.controllerInitializer.accept(panel);
             }
@@ -231,12 +235,15 @@ public class MainFrame extends JFrame {
             tabbedPane.addTab(title, panel);
             tabbedPane.setSelectedComponent(panel);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Không thể mở panel: " + title + "\nLỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Không thể mở panel: " + title + "\nLỗi: " + ex.getMessage(),
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+
     }
 }
