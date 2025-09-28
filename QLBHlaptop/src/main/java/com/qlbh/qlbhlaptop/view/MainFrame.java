@@ -6,10 +6,11 @@ import com.qlbh.qlbhlaptop.controller.LoaiSPController;
 import com.qlbh.qlbhlaptop.controller.NhaCungCapController;
 import com.qlbh.qlbhlaptop.controller.NhanVienController;
 import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
-import com.qlbh.qlbhlaptop.controller.QuyenController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
+import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
+import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,8 +21,9 @@ import java.util.function.Consumer;
 public class MainFrame extends JFrame {
 
     private JTabbedPane tabbedPane;
-    private JLabel lblUser, lblRole;
+    private JLabel lblUser, lblRole, lblTime;
     private TaiKhoan loggedInUser;
+    private JMenu menuManager;
     
     // Ánh xạ tên menu với tên lớp và Consumer để khởi tạo Controller
     private static final Map<String, PanelInfo> managedPanels = new LinkedHashMap<>();
@@ -55,13 +57,15 @@ public class MainFrame extends JFrame {
                 panel -> new PhieuNhapController((PhieuNhapPanel) panel)));
         managedPanels.put("Tài khoản", new PanelInfo("com.qlbh.qlbhlaptop.view.TaiKhoanPanel",
                 panel -> new TaiKhoanController((TaiKhoanPanel) panel)));
-        managedPanels.put("Quyền", new PanelInfo("com.qlbh.qlbhlaptop.view.QuyenPanel", 
-                panel -> new QuyenController((QuyenPanel) panel)));
     }
 
-    public MainFrame(TaiKhoan user) {
-        this.loggedInUser = user;
-
+    public MainFrame() {
+        this.loggedInUser = PhienDangNhap.getPhien().getngDung();
+        if (this.loggedInUser == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng đăng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            System.exit(0); 
+            return;
+        }
         setTitle("Quản lý bán hàng Laptop");
         setSize(1200, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -82,14 +86,14 @@ public class MainFrame extends JFrame {
         menuSystem.add(menuItemExit);
 
         // Menu Quản lý
-        JMenu menuManage = new JMenu("Quản lý");
-        menuManage.setMnemonic(KeyEvent.VK_Q);
+        menuManager = new JMenu("Quản lý");
+        menuManager.setMnemonic(KeyEvent.VK_Q);
         
         // Tạo và thêm menu item một cách tự động từ HashMap
         for (String title : managedPanels.keySet()) {
             JMenuItem item = new JMenuItem(title);
             item.addActionListener(e -> openManagedPanel(title));
-            menuManage.add(item);
+            menuManager.add(item);
         }
 
         // Menu Trợ giúp
@@ -100,29 +104,40 @@ public class MainFrame extends JFrame {
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuSystem);
-        menuBar.add(menuManage);
+        menuBar.add(menuManager);
         menuBar.add(menuHelp);
 
+        applyAuthorization(); 
         // ===== MAIN CONTENT =====
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
         add(tabbedPane, BorderLayout.CENTER);
 
-        // ===== STATUS BAR (Cải thiện bố cục) =====
+        // ===== STATUS BAR =====
         JPanel pnlStatus = new JPanel(new BorderLayout());
         pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Thêm padding
         
+        
         lblUser = new JLabel("Người dùng: " + loggedInUser.getTenDangNhap());
         lblRole = new JLabel("Quyền: " + loggedInUser.getMaQuyen());
+        lblTime = new JLabel();
+        
+        Timer timer = new Timer(1000, e -> {
+        lblTime.setText(new java.text.SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(new java.util.Date()));
+        });
+        timer.start();
 
         lblUser.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         lblRole.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         
         // Tạo panel để chứa vai trò và căn phải
         JPanel rightStatus = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         rightStatus.add(lblUser);
         rightStatus.add(new JLabel(" | "));
         rightStatus.add(lblRole);
+        rightStatus.add(new JLabel(" | "));
+        rightStatus.add(lblTime);
 
         pnlStatus.add(rightStatus, BorderLayout.EAST);
 
@@ -144,16 +159,47 @@ public class MainFrame extends JFrame {
                     "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 dispose();
+                PhienDangNhap.getPhien().logout();
+                SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true)); // mở lại login
             }
         });
         
         menuItemAbout.addActionListener(e -> JOptionPane.showMessageDialog(MainFrame.this,
-                "<html><p><b>Phần mềm Quản lý Bán hàng</b></p><p>Phiên bản 1.0</p><p>Nhóm: XYZ</p></html>",
+                "<html><p><b>Phần mềm Quản lý Bán hàng Laptop</b></p><p>Nhóm: 13</p>"
+                        + "<p><b>Trần Nguyễn Như Ngọc: 24410204 </b></p><p>Bùi Anh Quốc: 24410218</p>"
+                        + "<p><b>Võ Văn Quý: 24410219 </b></p><p>Trần Tiến: 24410239</p></html>",
                 "Giới thiệu", JOptionPane.INFORMATION_MESSAGE));
     }
     
+    public void applyAuthorization(){
+        String vaitro = loggedInUser.getMaQuyen();
+        
+        // Vô hiệu hóa
+        for (int i = 0; i < menuManager.getItemCount(); i++) {
+            JMenuItem item = menuManager.getItem(i);
+            if (item == null) continue; 
+            
+            String title = item.getText();
+            boolean isVisible = true; // Mặc định là hiển thị
+            
+            // Dành cho Admin
+            if (title.equals("Tài khoản")) {
+                isVisible = vaitro.equals(VaiTro.ADMIN);
+            }
+            // Dành cho Admin và manager
+            else if (title.equals("Nhân viên") || title.equals("Phiếu nhập") || title.equals("Nhà cung cấp")) {
+                isVisible = vaitro.equals(VaiTro.ADMIN) || vaitro.equals(VaiTro.MANAGER);
+            }
+            // Chức năng chung
+            item.setVisible(isVisible);
+        }
+        getJMenuBar().revalidate();
+        getJMenuBar().repaint();
+    }
+
     // Phương thức chung để mở panel
     private void openManagedPanel(String title) {
+        
         int index = tabbedPane.indexOfTab(title);
         if (index != -1) {
             tabbedPane.setSelectedIndex(index);
@@ -191,10 +237,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        TaiKhoan testUser = new TaiKhoan();
-        testUser.setTenDangNhap("admin");
-        testUser.setMaQuyen("QL"); 
-
-        SwingUtilities.invokeLater(() -> new MainFrame(testUser).setVisible(true));
+        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }

@@ -7,6 +7,7 @@ com\qlbh\qlbhlaptop\view\TaiKhoanPanel$1.class
 com\qlbh\qlbhlaptop\view\SanPhamPanel.class
 com\qlbh\qlbhlaptop\controller\DonHangController.class
 com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.class
+com\qlbh\qlbhlaptop\view\LoginFrame$1.class
 com\qlbh\qlbhlaptop\dao\SanPhamDAO.class
 com\qlbh\qlbhlaptop\view\LoaiSPPanel$1.class
 com\qlbh\qlbhlaptop\controller\SanPhamController.class
@@ -20,9 +21,11 @@ com\qlbh\qlbhlaptop\controller\TaiKhoanController$3.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController.class
 com\qlbh\qlbhlaptop\view\KhachHangPanel$1.class
 com\qlbh\qlbhlaptop\controller\KhachHangController.class
+com\qlbh\qlbhlaptop\Ho_Tro\PhienDangNhap.class
 com\qlbh\qlbhlaptop\model\SanPham.class
 com\qlbh\qlbhlaptop\view\SanPhamPanel$ImageRenderer.class
 com\qlbh\qlbhlaptop\view\LoginFrame.class
+com\qlbh\qlbhlaptop\controller\TaiKhoanController$6.class
 com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.class
 com\qlbh\qlbhlaptop\view\KhachHangPanel.class
 com\qlbh\qlbhlaptop\model\DonHang.class
@@ -34,6 +37,7 @@ com\qlbh\qlbhlaptop\model\TaiKhoan.class
 com\qlbh\qlbhlaptop\view\LoaiSPPanel$2.class
 com\qlbh\qlbhlaptop\model\NhaCungCap.class
 com\qlbh\qlbhlaptop\QLBHlaptop.class
+com\qlbh\qlbhlaptop\Ho_Tro\VaiTro.class
 com\qlbh\qlbhlaptop\controller\LoginController.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController$2.class
 com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.class
@@ -45,6 +49,7 @@ com\qlbh\qlbhlaptop\model\KhachHang.class
 com\qlbh\qlbhlaptop\dao\NhanVienDAO.class
 com\qlbh\qlbhlaptop\controller\PhieuNhapController.class
 com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Sua.class
+com\qlbh\qlbhlaptop\controller\TaiKhoanController$5.class
 com\qlbh\qlbhlaptop\view\NhanVienPanel.class
 com\qlbh\qlbhlaptop\view\LoaiSPPanel$3.class
 com\qlbh\qlbhlaptop\model\NhanVien.class
@@ -67,6 +72,7 @@ com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.class
 com\qlbh\qlbhlaptop\view\LoaiSPPanel.class
 com\qlbh\qlbhlaptop\dao\DAOException.class
 com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Sua.class
+com\qlbh\qlbhlaptop\dto\TaiKhoanDTO.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController$1.class
 com\qlbh\qlbhlaptop\controller\TaiKhoanController$4.class
 com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.class
