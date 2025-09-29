@@ -9,12 +9,10 @@ import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
-import com.qlbh.qlbhlaptop.model.TaiKhoan;
-<<<<<<< HEAD
-=======
+//import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
+
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
->>>>>>> ccb88b6663ef6608095f28303bf92275ad2fac59
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -46,7 +44,9 @@ public class MainFrame extends JFrame {
     }
 
     static {
+
         // Ánh xạ các panel và controller tương ứng
+
         managedPanels.put("Nhân viên", new PanelInfo("com.qlbh.qlbhlaptop.view.NhanVienPanel",
                 panel -> new NhanVienController((NhanVienPanel) panel)));
         managedPanels.put("Khách hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.KhachHangPanel",
@@ -97,16 +97,9 @@ public class MainFrame extends JFrame {
         menuSystem.add(menuItemExit);
 
         // Menu Quản lý
-<<<<<<< HEAD
-        JMenu menuManage = new JMenu("Quản lý");
-        menuManage.setMnemonic(KeyEvent.VK_Q);
-=======
         menuManager = new JMenu("Quản lý");
         menuManager.setMnemonic(KeyEvent.VK_Q);
         
-        // Tạo và thêm menu item một cách tự động từ HashMap
->>>>>>> ccb88b6663ef6608095f28303bf92275ad2fac59
-
         // Tạo và thêm menu item một cách tự động từ HashMap
         for (String title : managedPanels.keySet()) {
             JMenuItem item = new JMenuItem(title);
@@ -125,25 +118,16 @@ public class MainFrame extends JFrame {
         menuBar.add(menuManager);
         menuBar.add(menuHelp);
 
-<<<<<<< HEAD
-=======
         applyAuthorization(); 
->>>>>>> ccb88b6663ef6608095f28303bf92275ad2fac59
         // ===== MAIN CONTENT =====
         tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
         add(tabbedPane, BorderLayout.CENTER);
 
         // ===== STATUS BAR =====
-<<<<<<< HEAD
-=======
+
         JPanel pnlStatus = new JPanel(new BorderLayout());
         pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Thêm padding
-        
-        
->>>>>>> ccb88b6663ef6608095f28303bf92275ad2fac59
-        JPanel pnlStatus = new JPanel(new BorderLayout());
-        pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
         lblUser = new JLabel("Người dùng: " + loggedInUser.getTenDangNhap());
         lblRole = new JLabel("Quyền: " + loggedInUser.getMaQuyen());
