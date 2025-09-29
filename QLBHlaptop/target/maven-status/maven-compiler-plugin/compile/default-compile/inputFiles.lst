@@ -1,132 +1,72 @@
-<<<<<<< HEAD
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\TaiKhoanController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\DonHang.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\DatabaseConnection.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\SanPhamDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\SanPhamPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\LoaiSPDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\DonHangController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DAOException.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\KhachHangPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Sua.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\QuyenDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\QuyenController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\CheckExpression.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Sua.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\PhieuNhap.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\QuyenPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhanVienController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhanVien.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhaCungCapController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\MainFrame.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhanVienPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\LoaiSP.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoaiSPPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\TaiKhoan.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoginController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhaCungCapPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhanVienDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\QLBHlaptop.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\PhieuNhapPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhaCungCap.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Them.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietDonHangDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\SanPham.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\PhieuNhapController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoaiSPController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietDonHang.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DonHangDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Them.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\KhachHang.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoginFrame.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhaCungCapDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\KhachHangController.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\TaiKhoanPanel.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\KhachHangDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\Quyen.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietPhieuNhap.java
-D:\UIT\Ki3\Java\QLBH_Laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\SanPhamController.java
-=======
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoaiSPController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\Ho_Tro\PhienDangNhap.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\KhachHangController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\RevenueByEmployeeDTO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\SanPham.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoginController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\KhachHang.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\DonHangController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\LoaiSP.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhaCungCapController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\TaiKhoan.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DonHangDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\MainFrame.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\SanPhamDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoaiSPPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Sua.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\SanPhamPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\Quyen.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerDTO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_TopCustomer_Dialog.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\KhachHangPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NewJFrame.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhanVienDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TaiKhoanDTO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoginFrame.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\QuyenDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_TopCustomers_Dialog.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Them.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietPhieuNhap.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietDonHang.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\ChiTietDonHangController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\TaiKhoanController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Sua.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\util\CsvExportUtil.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhaCungCapDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhaCungCap.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\PhieuNhapPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\OrderOfCustomerDTO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhanVien.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\QuyenController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\DatabaseConnection.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhanVienController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\KhachHangDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Orders_Dialog.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\QLBHlaptop.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhanVienPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\PhieuNhapController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\DonHang.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietDonHangDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\QuyenPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\Ho_Tro\VaiTro.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\LoaiSPDAO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Them.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerByEmpDTO.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\CheckExpression.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_TopSale_Dialog.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhaCungCapPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\SanPhamController.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\PhieuNhap.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DAOException.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\ChiTietDonHangPanel.java
-C:\Users\ADMIN\Desktop\Lien Thong UIT\12 CongNghe_Java\1.DoAn\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\TaiKhoanPanel.java
->>>>>>> 78545ec58a2676aac015c3449d7910b2054e43b0
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\CheckExpression.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhaCungCapPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\SanPhamPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\SanPhamDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Sua.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\Ho_Tro\VaiTro.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoaiSPPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\TaiKhoanPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\KhachHangDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerByEmpDTO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhanVienController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietPhieuNhapDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\Ho_Tro\PhienDangNhap.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhanVien.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DonHangDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Them.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\KhachHang.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\Quyen.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_TopCustomers_Dialog.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\QLBHlaptop.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietDonHang.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhanVienDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\KhachHangPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\DonHangController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\SanPham.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\KhachHangController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\RevenueByEmployeeDTO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\SanPhamController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NhanVienPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\ChiTietDonHangDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhaCungCapDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Sua.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\DAOException.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\ChiTietDonHangController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TaiKhoanDTO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoginFrame.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\LoaiSPDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\util\CsvExportUtil.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\PhieuNhapPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\LoaiSP.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\QuyenPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\TaiKhoan.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\PhieuNhap.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_TopSale_Dialog.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Them.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Orders_Dialog.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\MainFrame.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\DatabaseConnection.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\QuyenController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_TopCustomer_Dialog.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\DonHang.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\NhaCungCapController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\OrderOfCustomerDTO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\TaiKhoanController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\PhieuNhapController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\QuyenDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\NhaCungCap.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoginController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerDTO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\NewJFrame.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\ChiTietDonHangPanel.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\LoaiSPController.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\ChiTietPhieuNhap.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.java
+D:\Work_Space\NetBeansProjects\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.java

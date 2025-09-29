@@ -251,6 +251,7 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
             }
         });
 
+        lblSearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         lblSearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblSearch1ActionPerformed(evt);
@@ -371,7 +372,7 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

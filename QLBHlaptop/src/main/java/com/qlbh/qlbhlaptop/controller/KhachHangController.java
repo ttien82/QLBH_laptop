@@ -209,11 +209,11 @@ public class KhachHangController {
         model.setRowCount(0);
         for (KhachHang kh : list) {
             model.addRow(new Object[]{
-                kh.getMaKH(), // cột 0
-                kh.getTenKH(), // cột 1
-                kh.getDienThoai(), // cột 2
-                kh.getEmail(), // cột 3
-                kh.getDiaChi() // cột 4
+                kh.getMaKH(), 
+                kh.getTenKH(), 
+                kh.getDienThoai(), 
+                kh.getEmail(), 
+                kh.getDiaChi() 
             });
         }
         view.getBtnEdit().setEnabled(false);

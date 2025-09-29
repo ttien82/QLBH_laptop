@@ -10,6 +10,7 @@ import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
 //import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
+import com.qlbh.qlbhlaptop.model.TaiKhoan;            // ✅ thêm
 
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
