@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com\qlbh\qlbhlaptop\controller\NhanVienController.class
 com\qlbh\qlbhlaptop\model\Quyen.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel$2.class
@@ -82,3 +83,5 @@ com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Them.class
 com\qlbh\qlbhlaptop\controller\QuyenController.class
 com\qlbh\qlbhlaptop\dao\QuyenDAO.class
 com\qlbh\qlbhlaptop\view\SanPhamPanel$4.class
+=======
+>>>>>>> 78545ec58a2676aac015c3449d7910b2054e43b0
