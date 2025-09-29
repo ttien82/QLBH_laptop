@@ -1,26 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.qlbh.qlbhlaptop.view;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import com.qlbh.qlbhlaptop.dao.DonHangDAO;
+import com.qlbh.qlbhlaptop.dto.DonHangViewDTO;
+import com.qlbh.qlbhlaptop.model.DonHang;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.awt.Frame;
 
 public class DonHangPanel extends javax.swing.JPanel {
-    
+
     public DonHangPanel() {
         initComponents();
-        
+        loadData();
     }
-    
+
+    private void loadData() {
+        String[] columnNames = {"Mã Đơn Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        DonHangDAO dao = new DonHangDAO();
+        List<DonHangViewDTO> list = dao.getAllDonHangWithKhachHang();
+        for (DonHangViewDTO dh : list) {
+            model.addRow(new Object[]{
+                    dh.getMaDH(), dh.getTenKH(), dh.getDienThoai(), dh.getDiaChi()
+            });
+        }
+        tbl.setModel(model);
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -33,12 +44,13 @@ public class DonHangPanel extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnEdit1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
 
         btnSearch1.setBackground(new java.awt.Color(102, 102, 255));
-        btnSearch1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnSearch1.setFont(new java.awt.Font("Arial", 0, 12)); 
         btnSearch1.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch1.setText("Tìm kiếm");
         btnSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -70,9 +82,14 @@ public class DonHangPanel extends javax.swing.JPanel {
         );
 
         btnAdd.setBackground(new java.awt.Color(0, 204, 204));
-        btnAdd.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Arial", 1, 14)); 
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -109,14 +126,34 @@ public class DonHangPanel extends javax.swing.JPanel {
         );
 
         btnDelete.setBackground(new java.awt.Color(255, 102, 102));
-        btnDelete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Arial", 1, 14)); 
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Xóa");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnEdit.setBackground(new java.awt.Color(51, 153, 0));
-        btnEdit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Arial", 1, 14)); 
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Cập nhật");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnEdit1.setBackground(new java.awt.Color(51, 153, 0));
+        btnEdit1.setFont(new java.awt.Font("Arial", 1, 14)); 
+        btnEdit1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEdit1.setText("Hiển Thị Chi Tiết");
+        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdit1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -124,6 +161,8 @@ public class DonHangPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEdit1)
+                .addGap(18, 18, 18)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,7 +174,8 @@ public class DonHangPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -157,15 +197,8 @@ public class DonHangPanel extends javax.swing.JPanel {
         );
 
         tbl.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
+            new Object [][] {},
+            new String [] {"Mã Đơn Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"}
         ));
         jScrollPane1.setViewportView(tbl);
 
@@ -203,20 +236,82 @@ public class DonHangPanel extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearch1ActionPerformed
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        String keyword = lblSearch1.getText().trim();
+        DonHangDAO dao = new DonHangDAO();
+        List<DonHangViewDTO> list = dao.searchDonHang(keyword);
 
-        public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new DonHangPanel().setVisible(true));
-    }
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Mã Đơn Hàng","Tên Khách Hàng","Số Điện Thoại","Địa Chỉ"}, 0);
+        for (DonHangViewDTO dh : list) {
+            model.addRow(new Object[]{dh.getMaDH(), dh.getTenKH(), dh.getDienThoai(), dh.getDiaChi()});
+        }
+        tbl.setModel(model);
+    }                                          
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        int row = tbl.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một đơn hàng!");
+            return;
+        }
+        String maDH = (String) tbl.getValueAt(row, 0);
+        ChiTietDonHangDialog dialog = new ChiTietDonHangDialog(maDH);
+        dialog.setVisible(true);
+    }                                        
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        DonHangDialog_Them dialog = new DonHangDialog_Them((Frame) SwingUtilities.getWindowAncestor(this));
+        dialog.setVisible(true);
+        loadData(); // refresh bảng sau khi thêm
+    }                                     
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        int row = tbl.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một đơn hàng để cập nhật!");
+            return;
+        }
+
+        String maDH = (String) tbl.getValueAt(row, 0);
+        DonHangDAO dao = new DonHangDAO();
+        DonHang dh = dao.findById(maDH);
+
+        if (dh != null) {
+            DonHangDialog_Sua dialog = new DonHangDialog_Sua((Frame) SwingUtilities.getWindowAncestor(this), dh);
+            dialog.setVisible(true);
+            loadData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng cần cập nhật!");
+        }
+    }                                       
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        int row = tbl.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn đơn hàng cần xóa!");
+            return;
+        }
+        String maDH = (String) tbl.getValueAt(row, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa đơn hàng " + maDH + "?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            DonHangDAO dao = new DonHangDAO();
+            if (dao.delete(maDH)) {
+                JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                loadData();
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!");
+            }
+        }
+    }                                         
+
+
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnEdit1;
     private javax.swing.JButton btnSearch1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -227,5 +322,5 @@ public class DonHangPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lblSearch1;
     private javax.swing.JTable tbl;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

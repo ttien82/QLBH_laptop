@@ -2,22 +2,15 @@ package com.qlbh.qlbhlaptop.dao;
 
 import com.qlbh.qlbhlaptop.config.DatabaseConnection;
 import com.qlbh.qlbhlaptop.model.ChiTietDonHang;
+import com.qlbh.qlbhlaptop.dto.ChiTietDonHangViewDTO;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Cung cấp các phương thức CRUD (Create, Read, Update, Delete)
- * để quản lý thông tin chi tiết đơn hàng.
- * Sử dụng PreparedStatement để tránh SQL Injection và tối ưu hiệu suất.
- */
 public class ChiTietDonHangDAO {
 
-    /**
-     * Ánh xạ (map) dữ liệu từ ResultSet vào đối tượng ChiTietDonHang.
-     */
+    // Ánh xạ dữ liệu cơ bản
     private ChiTietDonHang mapResultSetToCTDH(ResultSet rs) throws SQLException {
         ChiTietDonHang ctdh = new ChiTietDonHang();
         ctdh.setMaDH(rs.getString("MaDH"));
@@ -27,9 +20,7 @@ public class ChiTietDonHangDAO {
         return ctdh;
     }
 
-    /**
-     * Lấy danh sách chi tiết của một đơn hàng dựa trên mã đơn hàng.
-     */
+    // Lấy chi tiết theo mã đơn hàng
     public List<ChiTietDonHang> getByDonHang(String maDH) {
         List<ChiTietDonHang> list = new ArrayList<>();
         String sql = "SELECT * FROM ChiTietDonHang WHERE MaDH=?";
@@ -47,12 +38,14 @@ public class ChiTietDonHangDAO {
         return list;
     }
 
-    /**
-     * Lấy tất cả chi tiết đơn hàng có trong cơ sở dữ liệu.
-     */
+    // Lấy tất cả chi tiết đơn hàng (chỉ đơn hàng hợp lệ)
     public List<ChiTietDonHang> getAll() {
         List<ChiTietDonHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM ChiTietDonHang";
+        String sql = """
+            SELECT c.MaDH, c.MaSP, c.SoLuong, c.DonGia
+            FROM ChiTietDonHang c
+            JOIN DonHang d ON c.MaDH = d.MaDH
+        """;
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -65,9 +58,7 @@ public class ChiTietDonHangDAO {
         return list;
     }
 
-    /**
-     * Thêm một chi tiết đơn hàng mới.
-     */
+    // Thêm chi tiết đơn hàng
     public boolean insert(ChiTietDonHang ctdh) {
         String sql = "INSERT INTO ChiTietDonHang(MaDH, MaSP, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -82,9 +73,7 @@ public class ChiTietDonHangDAO {
         }
     }
 
-    /**
-     * Cập nhật chi tiết đơn hàng.
-     */
+    // Cập nhật chi tiết đơn hàng
     public boolean update(ChiTietDonHang ctdh) {
         String sql = "UPDATE ChiTietDonHang SET SoLuong=?, DonGia=? WHERE MaDH=? AND MaSP=?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -99,9 +88,7 @@ public class ChiTietDonHangDAO {
         }
     }
 
-    /**
-     * Xóa chi tiết đơn hàng.
-     */
+    // Xóa chi tiết đơn hàng
     public boolean delete(String maDH, String maSP) {
         String sql = "DELETE FROM ChiTietDonHang WHERE MaDH=? AND MaSP=?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -114,9 +101,7 @@ public class ChiTietDonHangDAO {
         }
     }
 
-    /**
-     * Kiểm tra chi tiết đơn hàng có tồn tại hay không.
-     */
+    // Kiểm tra tồn tại
     public boolean exists(String maDH, String maSP) {
         String sql = "SELECT 1 FROM ChiTietDonHang WHERE MaDH=? AND MaSP=?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -131,35 +116,57 @@ public class ChiTietDonHangDAO {
         }
     }
 
-    /**
-     * Main test.
-     */
-    public static void main(String[] args) {
-        ChiTietDonHangDAO dao = new ChiTietDonHangDAO();
-
-        System.out.println("--- IN TẤT CẢ CHI TIẾT ĐƠN HÀNG ---");
-        for (ChiTietDonHang ctdh : dao.getAll()) {
-            System.out.println(ctdh);
+    // ✅ Lấy tất cả chi tiết JOIN với DonHang (cho Panel hiển thị)
+    public List<ChiTietDonHangViewDTO> getAllWithDonHang() {
+        List<ChiTietDonHangViewDTO> list = new ArrayList<>();
+        String sql = """
+            SELECT d.MaDH, c.MaSP, c.SoLuong, c.DonGia
+            FROM DonHang d
+            JOIN ChiTietDonHang c ON d.MaDH = c.MaDH
+            ORDER BY d.MaDH
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(new ChiTietDonHangViewDTO(
+                        rs.getString("MaDH"),
+                        rs.getString("MaSP"),
+                        rs.getInt("SoLuong"),
+                        rs.getBigDecimal("DonGia")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi lấy chi tiết đơn hàng kèm đơn hàng", e);
         }
+        return list;
+    }
 
-        System.out.println("\n--- IN CHI TIẾT ĐƠN HÀNG DH001 ---");
-        for (ChiTietDonHang ctdh : dao.getByDonHang("DH001")) {
-            System.out.println(ctdh);
+    // ✅ Tìm kiếm chi tiết theo Mã ĐH
+    public List<ChiTietDonHangViewDTO> searchByMaDH(String maDH) {
+        List<ChiTietDonHangViewDTO> list = new ArrayList<>();
+        String sql = """
+            SELECT d.MaDH, c.MaSP, c.SoLuong, c.DonGia
+            FROM DonHang d
+            JOIN ChiTietDonHang c ON d.MaDH = c.MaDH
+            WHERE d.MaDH LIKE ?
+        """;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + maDH + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new ChiTietDonHangViewDTO(
+                            rs.getString("MaDH"),
+                            rs.getString("MaSP"),
+                            rs.getInt("SoLuong"),
+                            rs.getBigDecimal("DonGia")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi tìm chi tiết đơn hàng theo Mã ĐH", e);
         }
-
-        System.out.println("\n--- THÊM CHI TIẾT ---");
-        ChiTietDonHang ct = new ChiTietDonHang("DH002", "SP004", 2, new BigDecimal("15000000"));
-        System.out.println("Thêm thành công? " + dao.insert(ct));
-
-        System.out.println("\n--- CẬP NHẬT CHI TIẾT ---");
-        ct.setSoLuong(3);
-        ct.setDonGia(new BigDecimal("14000000"));
-        System.out.println("Cập nhật thành công? " + dao.update(ct));
-
-        System.out.println("\n--- KIỂM TRA TỒN TẠI ---");
-        System.out.println("Có tồn tại DH002-SP004? " + dao.exists("DH002", "SP004"));
-
-        System.out.println("\n--- XÓA CHI TIẾT ---");
-        System.out.println("Xóa thành công? " + dao.delete("DH002", "SP004"));
+        return list;
     }
 }

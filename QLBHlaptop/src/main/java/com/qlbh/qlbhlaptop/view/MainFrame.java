@@ -1,5 +1,6 @@
 package com.qlbh.qlbhlaptop.view;
 
+
 import com.qlbh.qlbhlaptop.controller.DonHangController;
 import com.qlbh.qlbhlaptop.controller.KhachHangController;
 import com.qlbh.qlbhlaptop.controller.LoaiSPController;
@@ -9,8 +10,9 @@ import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
-//import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
-
+//import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;       
+// ✅ thêm
+import com.qlbh.qlbhlaptop.model.TaiKhoan;
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
 import javax.swing.*;
