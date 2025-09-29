@@ -220,6 +220,28 @@ public class SanPhamDAO {
             throw new DAOException("Lỗi khi xóa sản phẩm", e);
         }
     }
+    public List<Object[]> getSanPhamBanChay() throws Exception {
+        List<Object[]> list = new ArrayList<>();
+        String sql = "SELECT sp.MaSP, sp.TenSP, SUM(ct.SoLuong) AS TongSoLuong " +
+                     "FROM ChiTietDonHang ct " +
+                     "JOIN SanPham sp ON ct.MaSP = sp.MaSP " +
+                     "GROUP BY sp.MaSP, sp.TenSP " +
+                     "ORDER BY TongSoLuong DESC";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(new Object[] {
+                    rs.getString("MaSP"),
+                    rs.getString("TenSP"),
+                    rs.getInt("TongSoLuong")
+                });
+            }
+        }
+        return list;
+    }
+
     
     /**
      * Phương thức main để kiểm tra chức năng của lớp SanPhamDAO.
