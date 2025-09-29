@@ -9,7 +9,7 @@ import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
 import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
-import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
+//import com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel;            // ✅ thêm
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
@@ -42,9 +42,6 @@ public class MainFrame extends JFrame {
     }
 
     static {
-        managedPanels.put("Chi tiết đơn hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.ChiTietDonHangPanel",
-        panel -> new ChiTietDonHangController((ChiTietDonHangPanel) panel)));
-
         managedPanels.put("Nhân viên", new PanelInfo("com.qlbh.qlbhlaptop.view.NhanVienPanel",
                 panel -> new NhanVienController((NhanVienPanel) panel)));
         managedPanels.put("Khách hàng", new PanelInfo("com.qlbh.qlbhlaptop.view.KhachHangPanel",
@@ -123,10 +120,6 @@ public class MainFrame extends JFrame {
         JPanel pnlStatus = new JPanel(new BorderLayout());
         pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Thêm padding
         
-        
-        JPanel pnlStatus = new JPanel(new BorderLayout());
-        pnlStatus.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-
         lblUser = new JLabel("Người dùng: " + loggedInUser.getTenDangNhap());
         lblRole = new JLabel("Quyền: " + loggedInUser.getMaQuyen());
         lblTime = new JLabel();
