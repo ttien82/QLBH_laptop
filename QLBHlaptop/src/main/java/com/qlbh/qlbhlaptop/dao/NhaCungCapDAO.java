@@ -76,6 +76,25 @@ public class NhaCungCapDAO {
         return null;
     }
 
+    public List<NhaCungCap> search(String keyword) {
+        List<NhaCungCap> list = new ArrayList<>();
+        String sql = "SELECT * FROM NhaCungCap WHERE TenNCC LIKE ?"; // Tìm gần đúng theo tên
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + keyword + "%"); // Thêm % để tìm kiếm chứa từ khóa
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi tìm kiếm nhà cung cấp với từ khóa: " + keyword, e);
+        }
+        return list;
+    }
     /**
      * Thêm một nhà cung cấp mới vào cơ sở dữ liệu.
      * @param ncc Đối tượng NhaCungCap cần thêm.

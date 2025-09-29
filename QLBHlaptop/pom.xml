@@ -17,6 +17,14 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.qlbh.qlbhlaptop.view.MainFrame</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <properties>
@@ -24,7 +32,8 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>com.qlbh.qlbhlaptop.QLBHlaptop</exec.mainClass>
     </properties>
-    <dependencies>        
+    <dependencies>   
+             
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
@@ -38,10 +47,19 @@
         </dependency>
 
         <dependency>
-
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.5</version>
         </dependency>
     </dependencies>
 

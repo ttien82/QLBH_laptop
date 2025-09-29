@@ -50,12 +50,14 @@ com\qlbh\qlbhlaptop\view\LoaiSPPanel$3.class
 com\qlbh\qlbhlaptop\model\NhanVien.class
 com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.class
 com\qlbh\qlbhlaptop\view\DonHangPanel$1.class
+com\qlbh\qlbhlaptop\controller\SanPhamController$1.class
 com\qlbh\qlbhlaptop\controller\LoaiSPController.class
 com\qlbh\qlbhlaptop\view\KhachHangPanel$3.class
 com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.class
 com\qlbh\qlbhlaptop\view\MainFrame.class
 com\qlbh\qlbhlaptop\view\TaiKhoanPanel.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel.class
+com\qlbh\qlbhlaptop\view\NhaCungCapPanel$4.class
 com\qlbh\qlbhlaptop\view\NhaCungCapPanel$1.class
 com\qlbh\qlbhlaptop\view\NhanVienPanel$3.class
 com\qlbh\qlbhlaptop\dao\PhieuNhapDAO.class
