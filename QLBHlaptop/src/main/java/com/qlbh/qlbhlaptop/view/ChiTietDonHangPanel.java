@@ -38,7 +38,7 @@ public class ChiTietDonHangPanel extends JPanel {
 
         btnAdd = new JButton(" Thêm");
         styleButton(btnAdd, new Color(15, 157, 88));
-
+        btnAdd.setVisible(false);
         topPanel.add(txtSearch);
         topPanel.add(btnSearch);
         topPanel.add(btnAdd);
@@ -72,7 +72,7 @@ public class ChiTietDonHangPanel extends JPanel {
 
         btnEdit = new JButton("️ Cập nhật");
         styleButton(btnEdit, new Color(52, 168, 83));
-
+        btnEdit.setVisible(false);
         btnDelete = new JButton("️ Xóa");
         styleButton(btnDelete, new Color(234, 67, 53));
 
