@@ -18,6 +18,8 @@ G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\D
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\TopCustomerByEmpDTO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\KhachHangPanel.java
+G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\ChiTietDonHangViewDTO.java
+G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\DonHangViewDTO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\NhanVienDAO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\DonHang.java
@@ -27,6 +29,7 @@ G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\QuyenDAO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\DonHangController.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\config\CheckExpression.java
+G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangDialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dao\TaiKhoanDAO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Them.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\SanPhamPanel.java
@@ -47,6 +50,7 @@ G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialo
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dto\RevenueByEmployeeDTO.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\PhieuNhapPanel.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\SanPham.java
+G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\DonHangDialog_Them.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\SanPham_Dialog_Them.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhaCungCap_Dialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\LoginFrame.java
@@ -66,6 +70,7 @@ G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\contr
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\KhachHang_Dialog_Them.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\PhieuNhap_Dialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\LoaiSP_Dialog_Them.java
+G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\view\ChiTietDonHangDialog.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\dialog\NhanVien_Dialog_Sua.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\model\KhachHang.java
 G:\hoccd\Ki3\Java\QLBH_laptop\QLBHlaptop\src\main\java\com\qlbh\qlbhlaptop\controller\PhieuNhapController.java

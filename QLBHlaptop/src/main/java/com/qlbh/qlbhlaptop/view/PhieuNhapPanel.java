@@ -1,6 +1,5 @@
 package com.qlbh.qlbhlaptop.view;
 
-import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.dao.PhieuNhapDAO;
 import com.qlbh.qlbhlaptop.dialog.PhieuNhap_Dialog_Sua;
 import com.qlbh.qlbhlaptop.dialog.PhieuNhap_Dialog_Them;
@@ -8,10 +7,8 @@ import com.qlbh.qlbhlaptop.model.PhieuNhap;
 import com.qlbh.qlbhlaptop.dao.ChiTietPhieuNhapDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.List;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -136,6 +133,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         btnSearch = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -160,6 +158,16 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnSearch.setBackground(new java.awt.Color(102, 102, 255));
+        btnSearch.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(102, 102, 255));
         btnSearch.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N

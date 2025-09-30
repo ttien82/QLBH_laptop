@@ -1,179 +1,167 @@
 package com.qlbh.qlbhlaptop.dao;
 
 import com.qlbh.qlbhlaptop.config.DatabaseConnection;
+import com.qlbh.qlbhlaptop.dto.DonHangViewDTO;
 import com.qlbh.qlbhlaptop.model.DonHang;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Cung cấp các phương thức CRUD để quản lý thông tin đơn hàng.
- * Sử dụng PreparedStatement để tránh SQL Injection và tối ưu hiệu suất.
- */
 public class DonHangDAO {
 
-    /**
-     * Ánh xạ (map) dữ liệu từ ResultSet vào đối tượng DonHang.
-     * @param rs Đối tượng ResultSet chứa dữ liệu từ cơ sở dữ liệu.
-     * @return Một đối tượng DonHang đã được điền đầy đủ dữ liệu.
-     * @throws SQLException Nếu có lỗi xảy ra khi truy cập dữ liệu trong ResultSet.
-     */
-    private DonHang mapResultSetToDonHang(ResultSet rs) throws SQLException {
-        DonHang dh = new DonHang();
-        dh.setMaDH(rs.getString("MaDH"));
-        dh.setMaKH(rs.getString("MaKH"));
-        dh.setMaNV(rs.getString("MaNV"));
-        dh.setNgayLap(rs.getDate("NgayLap"));
-        dh.setTongTien(rs.getBigDecimal("TongTien"));
-        dh.setTrangThai(rs.getString("TrangThai"));
-        return dh;
-    }
-
-    /**
-     * Lấy tất cả đơn hàng có trong cơ sở dữ liệu.
-     * @return Một danh sách (List) các đối tượng DonHang.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình truy vấn dữ liệu.
-     */
-    public List<DonHang> getAll() {
-        List<DonHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM DonHang";
+    // Lấy tất cả đơn hàng kèm thông tin khách hàng
+    public List<DonHangViewDTO> getAllDonHangWithKhachHang() {
+        List<DonHangViewDTO> list = new ArrayList<>();
+        String sql = "SELECT dh.MaDH, kh.TenKH, kh.DienThoai, kh.DiaChi " +
+                     "FROM DonHang dh " +
+                     "JOIN KhachHang kh ON dh.MaKH = kh.MaKH";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                list.add(mapResultSetToDonHang(rs));
+                list.add(new DonHangViewDTO(
+                        rs.getString("MaDH"),
+                        rs.getString("TenKH"),
+                        rs.getString("DienThoai"),
+                        rs.getString("DiaChi")
+                ));
             }
-
         } catch (SQLException e) {
             throw new DAOException("Lỗi khi lấy danh sách đơn hàng", e);
         }
         return list;
     }
 
-    /**
-     * Lấy một đơn hàng cụ thể dựa trên mã đơn hàng.
-     * @param maDH Mã đơn hàng.
-     * @return Đối tượng DonHang nếu tìm thấy, ngược lại trả về null.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình truy vấn dữ liệu.
-     */
-    public DonHang getById(String maDH) {
-        String sql = "SELECT * FROM DonHang WHERE MaDH=?";
+    // Tìm kiếm đơn hàng theo mã hoặc tên khách hàng
+    public List<DonHangViewDTO> searchDonHang(String keyword) {
+        List<DonHangViewDTO> list = new ArrayList<>();
+        String sql = "SELECT dh.MaDH, kh.TenKH, kh.DienThoai, kh.DiaChi " +
+                     "FROM DonHang dh " +
+                     "JOIN KhachHang kh ON dh.MaKH = kh.MaKH " +
+                     "WHERE dh.MaDH LIKE ? OR kh.TenKH LIKE ?";
+
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, maDH);
+
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToDonHang(rs);
+                while (rs.next()) {
+                    list.add(new DonHangViewDTO(
+                            rs.getString("MaDH"),
+                            rs.getString("TenKH"),
+                            rs.getString("DienThoai"),
+                            rs.getString("DiaChi")
+                    ));
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException("Lỗi khi lấy đơn hàng: " + maDH, e);
+            throw new DAOException("Lỗi khi tìm kiếm đơn hàng", e);
         }
-        return null;
+        return list;
     }
 
-    /**
-     * Thêm một đơn hàng mới vào cơ sở dữ liệu.
-     * @param dh Đối tượng DonHang cần thêm.
-     * @return true nếu thêm thành công, ngược lại trả về false.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình thêm dữ liệu.
-     */
+    // Thêm đơn hàng
     public boolean insert(DonHang dh) {
         String sql = "INSERT INTO DonHang(MaDH, MaKH, MaNV, NgayLap, TongTien, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, dh.getMaDH());
             ps.setString(2, dh.getMaKH());
             ps.setString(3, dh.getMaNV());
-            ps.setDate(4, new java.sql.Date(dh.getNgayLap().getTime())); // Chuyển đổi từ java.util.Date sang java.sql.Date
+            ps.setDate(4, new java.sql.Date(dh.getNgayLap().getTime()));
             ps.setBigDecimal(5, dh.getTongTien());
             ps.setString(6, dh.getTrangThai());
+
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DAOException("Lỗi khi thêm đơn hàng", e);
         }
     }
 
-    /**
-     * Cập nhật thông tin của một đơn hàng đã tồn tại.
-     * @param dh Đối tượng DonHang chứa thông tin mới.
-     * @return true nếu cập nhật thành công, ngược lại trả về false.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình cập nhật dữ liệu.
-     */
+    // Cập nhật đơn hàng
     public boolean update(DonHang dh) {
         String sql = "UPDATE DonHang SET MaKH=?, MaNV=?, NgayLap=?, TongTien=?, TrangThai=? WHERE MaDH=?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, dh.getMaKH());
             ps.setString(2, dh.getMaNV());
-            ps.setDate(3, new java.sql.Date(dh.getNgayLap().getTime())); // Chuyển đổi từ java.util.Date sang java.sql.Date
+            ps.setDate(3, new java.sql.Date(dh.getNgayLap().getTime()));
             ps.setBigDecimal(4, dh.getTongTien());
             ps.setString(5, dh.getTrangThai());
             ps.setString(6, dh.getMaDH());
+
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DAOException("Lỗi khi cập nhật đơn hàng", e);
         }
     }
 
-    /**
-     * Xóa một đơn hàng khỏi cơ sở dữ liệu dựa trên mã đơn hàng.
-     * @param maDH Mã đơn hàng cần xóa.
-     * @return true nếu xóa thành công, ngược lại trả về false.
-     * @throws DAOException Nếu có lỗi xảy ra trong quá trình xóa dữ liệu.
-     */
+    // Xóa đơn hàng (và chi tiết đơn hàng liên quan)
     public boolean delete(String maDH) {
-        String sql = "DELETE FROM DonHang WHERE MaDH=?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, maDH);
-            return ps.executeUpdate() > 0;
+        String sqlDeleteCT = "DELETE FROM ChiTietDonHang WHERE MaDH=?";
+        String sqlDeleteDH = "DELETE FROM DonHang WHERE MaDH=?";
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false); // bắt đầu transaction
+
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlDeleteCT)) {
+                ps1.setString(1, maDH);
+                ps1.executeUpdate();
+            }
+
+            int rows;
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlDeleteDH)) {
+                ps2.setString(1, maDH);
+                rows = ps2.executeUpdate();
+            }
+
+            conn.commit(); // xác nhận transaction
+            return rows > 0;
         } catch (SQLException e) {
             throw new DAOException("Lỗi khi xóa đơn hàng: " + maDH, e);
         }
     }
-
-    /**
-     * Phương thức main để kiểm tra chức năng của lớp DonHangDAO.
-     */
-    public static void main(String[] args) {
-        DonHangDAO dao = new DonHangDAO();
-
-        System.out.println("--- DANH SÁCH ĐƠN HÀNG ---");
-        List<DonHang> ds = dao.getAll();
-        for (DonHang dh : ds) {
-            System.out.println(dh);
+    public DonHang findById(String maDH) {
+        String sql = "SELECT * FROM DonHang WHERE MaDH = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, maDH);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new DonHang(
+                            rs.getString("MaDH"),
+                            rs.getString("MaKH"),
+                            rs.getString("MaNV"),
+                            rs.getDate("NgayLap"),
+                            rs.getBigDecimal("TongTien"),
+                            rs.getString("TrangThai")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi tìm đơn hàng theo mã: " + maDH, e);
         }
+        return null;
+    }
 
-        System.out.println("\n--- THÊM ĐƠN HÀNG ---");
-        DonHang dhMoi = new DonHang("DH010", "KH001", "NV001",
-                new java.util.Date(), // Sử dụng java.util.Date
-                new BigDecimal("50000000"),
-                "Đang xử lý");
-        boolean themOK = dao.insert(dhMoi);
-        System.out.println("Thêm thành công? " + themOK);
+    // Kiểm tra đơn hàng tồn tại
+    public boolean exists(String maDH) {
+        String sql = "SELECT 1 FROM DonHang WHERE MaDH=?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        System.out.println("\n--- CẬP NHẬT ĐƠN HÀNG ---");
-        dhMoi.setTongTien(new BigDecimal("45000000"));
-        dhMoi.setTrangThai("Đã giao");
-        boolean capNhatOK = dao.update(dhMoi);
-        System.out.println("Cập nhật thành công? " + capNhatOK);
-
-        System.out.println("\n--- TÌM ĐƠN HÀNG THEO ID ---");
-        DonHang dhById = dao.getById("DH010");
-        if (dhById != null) {
-            System.out.println("Tìm thấy: " + dhById);
-        } else {
-            System.out.println("Không tìm thấy đơn hàng.");
+            ps.setString(1, maDH);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi kiểm tra tồn tại đơn hàng", e);
         }
-
-        System.out.println("\n--- XÓA ĐƠN HÀNG ---");
-        boolean xoaOK = dao.delete("DH010");
-        System.out.println("Xóa thành công? " + xoaOK);
     }
 }
-
