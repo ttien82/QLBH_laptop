@@ -112,7 +112,7 @@
                   <Font name="Arial" size="18" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH LO&#x1ea0;I S&#x1ea2;N PH&#x1ea8;M"/>
+                <Property name="text" type="java.lang.String" value="DANH S&#xc1;CH PHI&#x1ebe;U NH&#x1eac;P"/>
               </Properties>
             </Component>
           </SubComponents>

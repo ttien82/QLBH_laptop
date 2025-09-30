@@ -31,6 +31,26 @@ public class PhieuNhapDAO {
         );
     }
 
+    
+    public List<PhieuNhap> search(String keyword) { /////////////////////////
+        List<PhieuNhap> list = new ArrayList<>();
+        String sql = "SELECT * FROM PhieuNhap WHERE TenLoaiSP LIKE ?"; // Tìm gần đúng theo tên
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + keyword + "%"); // Thêm % để tìm kiếm chứa từ khóa
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi tìm kiếm loại sản phẩm với từ khóa: " + keyword, e);
+        }
+        return list;
+    }
     /**
      * Lấy tất cả phiếu nhập có trong cơ sở dữ liệu.
      * @return Một danh sách (List) các đối tượng PhieuNhap.

@@ -1,10 +1,11 @@
 package com.qlbh.qlbhlaptop.view;
 
-import com.qlbh.qlbhlaptop.controller.LoaiSPController;
-import com.qlbh.qlbhlaptop.dao.LoaiSPDAO;
-import com.qlbh.qlbhlaptop.dialog.LoaiSP_Dialog_Sua;
-import com.qlbh.qlbhlaptop.dialog.LoaiSP_Dialog_Them;
-import com.qlbh.qlbhlaptop.model.LoaiSP;
+import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
+import com.qlbh.qlbhlaptop.dao.PhieuNhapDAO;
+import com.qlbh.qlbhlaptop.dialog.PhieuNhap_Dialog_Sua;
+import com.qlbh.qlbhlaptop.dialog.PhieuNhap_Dialog_Them;
+import com.qlbh.qlbhlaptop.model.PhieuNhap;
+import com.qlbh.qlbhlaptop.dao.ChiTietPhieuNhapDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -16,16 +17,16 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-public class LoaiSPPanel extends javax.swing.JPanel {
-
-    private LoaiSPDAO dao = new LoaiSPDAO();
-    private List<LoaiSP> ListLSP;
+public class PhieuNhapPanel extends javax.swing.JPanel {
+    
+    private ChiTietPhieuNhapDAO CTdao = new ChiTietPhieuNhapDAO();
+    private PhieuNhapDAO dao = new PhieuNhapDAO();
+    private List<PhieuNhap> lstPN;
     private DefaultTableModel model;
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoaiSPPanel.class.getName());
-    public LoaiSPPanel() {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PhieuNhapPanel.class.getName());
+    public PhieuNhapPanel() {
         initComponents();
-
         initTable();
         fillTableData();
         // Sự kiện nút
@@ -37,8 +38,16 @@ public class LoaiSPPanel extends javax.swing.JPanel {
         btnImport.addActionListener(e -> onImport());
         //btnEdit.addActionListener(e -> fillTableData());
     }
+    
+    public void openDialog(JFrame parent) {
+        PhieuNhap_Dialog_Them dialog = new PhieuNhap_Dialog_Them(parent, ma -> {
+           
+        });
+        dialog.setVisible(true);
+    }
+    
     private void initTable() {
-        String[] columns = {"Mã LoaiSP", "Tên LoaiSP"};
+        String[] columns = {"Mã PhieuNhap", "Mã NCC", "Mã NV" ,"NgayNhap" ,"Tổng tiền"};
         model = new DefaultTableModel(columns, 0);
         tbl.setModel(model);
         tbl.setAutoCreateRowSorter(true);
@@ -58,29 +67,29 @@ public class LoaiSPPanel extends javax.swing.JPanel {
 
     private void fillTableData() {
         model.setRowCount(0);
-        ListLSP = dao.getAll();
-        for (LoaiSP lsp : ListLSP) {
-            model.addRow(new Object[]{lsp.getMaLoaiSP(), lsp.getTenLoaiSP()});
+        lstPN = dao.getAll();
+        for (PhieuNhap pn : lstPN) {
+            model.addRow(new Object[]{pn.getMaPN(), pn.getMaNCC(),pn.getMaNV(), pn.getNgayNhap(), pn.getTongTien()});
         }
     }
     
     
     private void onSearch() {
-    String keyword = lblSearch1.getText().trim(); 
-    List<LoaiSP> list = dao.search(keyword);
+        String keyword = lblSearch1.getText().trim(); 
+        List<PhieuNhap> list = dao.search(keyword);
 
-    DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-    model.setRowCount(0); 
+        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+        model.setRowCount(0); 
 
-    for (LoaiSP loai : list) {
-        model.addRow(new Object[]{
-            loai.getMaLoaiSP(),loai.getTenLoaiSP()
-        });
-    }
+        for (PhieuNhap search : list) {
+            model.addRow(new Object[]{
+                search.getMaPN(),search.getMaNV()
+            });
+        }
 }
     
     private void onAdd() {
-        LoaiSP_Dialog_Them dialog = new LoaiSP_Dialog_Them((JFrame) SwingUtilities.getWindowAncestor(this));
+        PhieuNhap_Dialog_Them dialog = new PhieuNhap_Dialog_Them((JFrame) SwingUtilities.getWindowAncestor(this), "1");
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -99,7 +108,7 @@ public class LoaiSPPanel extends javax.swing.JPanel {
         if (row == -1) return;
 
         String maKH = tbl.getValueAt(row, 0).toString();
-        LoaiSP_Dialog_Sua dialog = new LoaiSP_Dialog_Sua((JFrame) SwingUtilities.getWindowAncestor(this), maKH);
+        PhieuNhap_Dialog_Sua dialog = new PhieuNhap_Dialog_Sua((JFrame) SwingUtilities.getWindowAncestor(this), maKH);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -114,18 +123,17 @@ public class LoaiSPPanel extends javax.swing.JPanel {
 
     private void onDelete() {
         int row = tbl.getSelectedRow();
-        if (row == -1) return;
-
         int confirm = JOptionPane.showConfirmDialog(
                 this,
-                "Bạn có chắc chắn muốn xóa Loại Sản Phẩm này?",
+                "Bạn có chắc chắn muốn xóa Phiếu Nhập này?",
                 "Xác nhận",
                 JOptionPane.YES_NO_OPTION
         );
 
         if (confirm == JOptionPane.YES_OPTION) {
-            String maKH = tbl.getValueAt(row, 0).toString();
-            dao.delete(maKH);
+            String ma = tbl.getValueAt(row, 0).toString();
+            CTdao.deleteByMaPN(ma);
+            dao.delete(ma);
             fillTableData();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
         }
@@ -137,21 +145,21 @@ public class LoaiSPPanel extends javax.swing.JPanel {
     if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         File file = fc.getSelectedFile();
         try {
-            LoaiSPController controller = new LoaiSPController(this);
-            List<LoaiSP> LoaiSP = controller.importFromExcel(file);
+            PhieuNhapController controller = new PhieuNhapController(this);
+            List<PhieuNhap> listPN = controller.importFromExcel(file);
 
             // TODO: lưu vào DB (gọi dao.insert/update)
-            for (LoaiSP loai : LoaiSP) {
+            for (PhieuNhap pn : listPN) {
                try {
-                dao.insert(loai);
+                dao.insert(pn);
             } catch (Exception e) {
                 e.printStackTrace(); // log chi tiết SQL
-                throw new Exception("Lỗi khi thêm loại sản phẩm: " + loai.getMaLoaiSP() + " - " + e.getMessage());
+                throw new Exception("Lỗi khi thêm phiếu nhập: " + pn.getMaPN()+ " - " + e.getMessage());
             }
             }
 
             JOptionPane.showMessageDialog(this, 
-                "Nhập Excel thành công: " + LoaiSP.size() + " nhà cung cấp",
+                "Nhập Excel thành công: " + listPN.size() + " Phiếu nhập",
                 "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             
             fillTableData();
@@ -176,13 +184,13 @@ public class LoaiSPPanel extends javax.swing.JPanel {
             }
             try {
                 // Lấy dữ liệu từ DAO
-                List<LoaiSP> LoaiSP = dao.getAll();  
+                List<PhieuNhap> lstPN = dao.getAll();  
                 // Gọi controller để export
-                LoaiSPController controller = new LoaiSPController(this);
+                PhieuNhapController controller = new PhieuNhapController(this);
                 System.out.println("File path: " + file);
-                System.out.println("Số nhà cung cấp: " + LoaiSP.size());
+                System.out.println("Số nhà cung cấp: " + lstPN.size());
 
-                controller.exportsToExcel(LoaiSP, file);
+                controller.exportsToExcel(lstPN, file);
 
                 JOptionPane.showMessageDialog(this, "Xuất Excel thành công: " + file.getAbsolutePath());
             } catch (Exception ex) {
@@ -215,7 +223,7 @@ public class LoaiSPPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DANH SÁCH LOẠI SẢN PHẨM");
+        jLabel1.setText("DANH SÁCH PHIẾU NHẬP");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -393,7 +401,7 @@ public class LoaiSPPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
         public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new LoaiSPPanel().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PhieuNhapPanel().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,10 +4,12 @@
  */
 package com.qlbh.qlbhlaptop.dialog;
 
-import com.qlbh.qlbhlaptop.dao.LoaiSPDAO;
-import com.qlbh.qlbhlaptop.model.LoaiSP;
+import com.qlbh.qlbhlaptop.dao.PhieuNhapDAO;
+import com.qlbh.qlbhlaptop.model.PhieuNhap;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -15,29 +17,46 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import com.toedter.calendar.JDateChooser;
+import java.math.BigDecimal;
 
-/*
+import java.sql.Date;
 
- */
-public class LoaiSP_Dialog_Sua extends JDialog{
-    private JTextField txtMaLoaiSP, txtTenLoaiSP;
+public class PhieuNhap_Dialog_Sua extends JDialog{
+    private JTextField txtMaPN, txtMaNCC, txtMaNV, txtTongTien;
+    private JDateChooser dateChooser;
     private JButton btnLuu;
-    private LoaiSPDAO lspdao = new LoaiSPDAO();
+    private PhieuNhapDAO pndao = new PhieuNhapDAO();
 
-    public LoaiSP_Dialog_Sua(JFrame parent, String ma) {
-        super(parent, "Update NV", true);
+    public PhieuNhap_Dialog_Sua(JFrame parent, String ma) {
+        super(parent, "Update Phieu Nhap", true);
         
         setLayout(new BorderLayout());
         JPanel panelForm = new JPanel(new GridLayout(10, 2, 5, 5));
         
-        LoaiSP lsp = lspdao.getById(ma);
-        txtMaLoaiSP = new JTextField(ma);
-        txtMaLoaiSP.setVisible(false);
+        PhieuNhap pn = pndao.getById(ma);
+        txtMaPN = new JTextField(ma);
+        txtMaPN.setVisible(false);
 
-        panelForm.add(new JLabel("Tên Loại Sản Phẩm:"));
-        txtTenLoaiSP = new JTextField(lsp.getTenLoaiSP());
-        panelForm.add(txtTenLoaiSP);
+        panelForm.add(new JLabel("Mã NCC:"));
+        txtMaNCC = new JTextField(pn.getMaNCC());
+        panelForm.add(txtMaNCC);
   
+        panelForm.add(new JLabel("Mã NV:"));
+        txtMaNV = new JTextField(pn.getMaNV());
+        panelForm.add(txtMaNV);
+          
+        dateChooser  = new JDateChooser(pn.getNgayNhap());
+        dateChooser.setDateFormatString("yyyy-MM-dd"); // Định dạng ngày
+        
+        panelForm.add(new JLabel("Ngày nhập: "));
+        panelForm.add(dateChooser);
+        
+        panelForm.add(new JLabel("Tổng tiền: "));
+        txtTongTien = new JTextField(pn.getTongTien().toString());
+        txtTongTien.setEditable(false);
+        panelForm.add(txtTongTien);
+        
         add(panelForm, BorderLayout.CENTER);
 
         // Panel nút Lưu
@@ -56,26 +75,19 @@ public class LoaiSP_Dialog_Sua extends JDialog{
     //Luu
     private void LuuThayDoi() {
         try {
-            if (txtTenLoaiSP.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Update Failed\nTen Loai SP không được để trống!",
-                    "Thông báo",
-                    JOptionPane.INFORMATION_MESSAGE
-                );
-            }
-            else
+            BigDecimal tongtien = new BigDecimal(txtTongTien.getText().trim());
+            PhieuNhap pnmoi = new PhieuNhap(
+                    txtMaPN.getText(),
+                    txtMaNCC.getText(),
+                    txtMaNV.getText(),
+                    dateChooser.getDate(),
+                    tongtien
+                ); 
+            if (pndao.update(pnmoi))// Lưu xuống DB 
             {
-                LoaiSP lspMoi = new LoaiSP(
-                        txtMaLoaiSP.getText(),
-                        txtTenLoaiSP.getText()
-                    ); 
-                if (lspdao.update(lspMoi))// Lưu xuống DB 
-                {           
-                    JOptionPane.showMessageDialog(this, "Update Loại SP thành công");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Update thất bại!");
-                }
+                JOptionPane.showMessageDialog(this, "Update Phiếu Nhập thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Update thất bại!");
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Lỗi khi kiểm tra định dạng đầu vào");

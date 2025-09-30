@@ -175,6 +175,21 @@ public class ChiTietPhieuNhapDAO {
             throw new DAOException("Lỗi khi xóa chi tiết phiếu nhập", e);
         }
     }
+    
+    public boolean deleteByMaPN(String maPN) {
+        String sql = "DELETE FROM ChiTietPhieuNhap WHERE MaPN=?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, maPN);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi xóa chi tiết phiếu nhập", e);
+        }
+    }
 
     /**
      * Phương thức main để kiểm tra chức năng của lớp ChiTietPhieuNhapDAO.

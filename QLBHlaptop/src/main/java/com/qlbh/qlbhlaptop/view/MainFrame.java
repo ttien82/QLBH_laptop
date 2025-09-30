@@ -13,6 +13,7 @@ import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;   // ✅ thêm
 
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
+import com.qlbh.qlbhlaptop.model.TaiKhoan;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
