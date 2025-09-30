@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Color;
 
 public class PhieuNhapPanel extends javax.swing.JPanel {
     
@@ -25,25 +26,17 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
     private DefaultTableModel model;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PhieuNhapPanel.class.getName());
-    public PhieuNhapPanel() {
+    public PhieuNhapPanel() {     
         initComponents();
+        txtSearch.setForeground(Color.GRAY); // màu placeholder
         initTable();
         fillTableData();
         // Sự kiện nút
         btnAdd.addActionListener(e -> onAdd());
         btnEdit.addActionListener(e -> onEdit());
         btnDelete.addActionListener(e -> onDelete());
-        btnSearch1.addActionListener(e -> onSearch());
-        btnExport.addActionListener(e -> onExport());
-        btnImport.addActionListener(e -> onImport());
+        btnSearch.addActionListener(e -> onSearch());
         //btnEdit.addActionListener(e -> fillTableData());
-    }
-    
-    public void openDialog(JFrame parent) {
-        PhieuNhap_Dialog_Them dialog = new PhieuNhap_Dialog_Them(parent, ma -> {
-           
-        });
-        dialog.setVisible(true);
     }
     
     private void initTable() {
@@ -73,23 +66,20 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
         }
     }
     
-    
+    //search theo mapn, mancc, manv
     private void onSearch() {
-        String keyword = lblSearch1.getText().trim(); 
+        String keyword = txtSearch.getText().trim(); 
         List<PhieuNhap> list = dao.search(keyword);
 
-        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-        model.setRowCount(0); 
-
-        for (PhieuNhap search : list) {
-            model.addRow(new Object[]{
-                search.getMaPN(),search.getMaNV()
-            });
+        model = (DefaultTableModel) tbl.getModel();
+        model.setRowCount(0);
+        for (PhieuNhap pn : list) {
+            model.addRow(new Object[]{pn.getMaPN(), pn.getMaNCC(),pn.getMaNV(), pn.getNgayNhap(), pn.getTongTien()});
         }
 }
     
     private void onAdd() {
-        PhieuNhap_Dialog_Them dialog = new PhieuNhap_Dialog_Them((JFrame) SwingUtilities.getWindowAncestor(this), "1");
+        PhieuNhap_Dialog_Them dialog = new PhieuNhap_Dialog_Them((JFrame) SwingUtilities.getWindowAncestor(this));
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -104,10 +94,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
     }
 
     private void onEdit() {
-        int row = tbl.getSelectedRow();
-        if (row == -1) return;
-
-        String maKH = tbl.getValueAt(row, 0).toString();
+        String maKH = tbl.getValueAt(tbl.getSelectedRow(), 0).toString();
         PhieuNhap_Dialog_Sua dialog = new PhieuNhap_Dialog_Sua((JFrame) SwingUtilities.getWindowAncestor(this), maKH);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -138,69 +125,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
         }
     }
-    
-    private void onImport() {
-    JFileChooser fc = new JFileChooser();
-    fc.setDialogTitle("Chọn file Excel để nhập");
-    if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        try {
-            PhieuNhapController controller = new PhieuNhapController(this);
-            List<PhieuNhap> listPN = controller.importFromExcel(file);
 
-            // TODO: lưu vào DB (gọi dao.insert/update)
-            for (PhieuNhap pn : listPN) {
-               try {
-                dao.insert(pn);
-            } catch (Exception e) {
-                e.printStackTrace(); // log chi tiết SQL
-                throw new Exception("Lỗi khi thêm phiếu nhập: " + pn.getMaPN()+ " - " + e.getMessage());
-            }
-            }
-
-            JOptionPane.showMessageDialog(this, 
-                "Nhập Excel thành công: " + listPN.size() + " Phiếu nhập",
-                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
-            fillTableData();
-            
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, 
-                "Lỗi khi nhập Excel: " + ex.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-        }
-    }
-}
-
-    
-    private void onExport() {
-        JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Chọn nơi lưu file Excel");
-        if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            if (!file.getName().toLowerCase().endsWith(".xlsx")) {
-                file = new File(file.getAbsolutePath() + ".xlsx");
-            }
-            try {
-                // Lấy dữ liệu từ DAO
-                List<PhieuNhap> lstPN = dao.getAll();  
-                // Gọi controller để export
-                PhieuNhapController controller = new PhieuNhapController(this);
-                System.out.println("File path: " + file);
-                System.out.println("Số nhà cung cấp: " + lstPN.size());
-
-                controller.exportsToExcel(lstPN, file);
-
-                JOptionPane.showMessageDialog(this, "Xuất Excel thành công: " + file.getAbsolutePath());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Lỗi khi xuất Excel: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
-            }
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -209,11 +134,9 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        btnSearch1 = new javax.swing.JButton();
-        lblSearch1 = new javax.swing.JTextField();
-        btnImport = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
-        btnExport = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -238,32 +161,25 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnSearch1.setBackground(new java.awt.Color(102, 102, 255));
-        btnSearch1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnSearch1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch1.setText("Tìm kiếm");
-        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(102, 102, 255));
+        btnSearch.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearch1ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
-
-        btnImport.setBackground(new java.awt.Color(255, 204, 102));
-        btnImport.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnImport.setForeground(new java.awt.Color(255, 255, 255));
-        btnImport.setText("Nhập Excel");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnImport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -271,21 +187,14 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 13, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         btnAdd.setBackground(new java.awt.Color(0, 204, 204));
         btnAdd.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Thêm");
-
-        btnExport.setBackground(new java.awt.Color(102, 204, 255));
-        btnExport.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnExport.setForeground(new java.awt.Color(255, 255, 255));
-        btnExport.setText("Xuất Excel");
-        btnExport.setActionCommand("btnExport");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -296,8 +205,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(115, 115, 115)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,8 +218,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -337,6 +244,11 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
             }
         ));
         tbl.setRowHeight(30);
+        tbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -396,9 +308,23 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearch1ActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount()== 2 && tbl.getSelectedRow() != -1) {
+                int row = tbl.getSelectedRow();
+
+                // Lấy giá trị từ cột "Mã" (ví dụ cột 0)
+                String ma = tbl.getValueAt(row, 0).toString();
+
+                // Mở frame và truyền mã vào
+                ChiTietPhieuNhapFrame frame = new ChiTietPhieuNhapFrame(ma);
+                frame.setVisible(true);
+        }
+    }//GEN-LAST:event_tblMouseClicked
 
         public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new PhieuNhapPanel().setVisible(true));
@@ -408,9 +334,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnExport;
-    private javax.swing.JButton btnImport;
-    private javax.swing.JButton btnSearch1;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -418,7 +342,7 @@ public class PhieuNhapPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lblSearch1;
     private javax.swing.JTable tbl;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

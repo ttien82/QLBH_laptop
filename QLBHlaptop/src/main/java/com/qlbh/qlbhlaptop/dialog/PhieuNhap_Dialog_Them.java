@@ -1,6 +1,6 @@
 package com.qlbh.qlbhlaptop.dialog;
 
-import com.qlbh.qlbhlaptop.view.ChiTietPhieuNhapPanel;
+import com.qlbh.qlbhlaptop.view.ChiTietPhieuNhapFrame;
 import com.qlbh.qlbhlaptop.dao.PhieuNhapDAO;
 import com.qlbh.qlbhlaptop.model.ChiTietPhieuNhap;
 import com.qlbh.qlbhlaptop.model.PhieuNhap;
@@ -22,13 +22,9 @@ public class PhieuNhap_Dialog_Them extends JDialog{
     private JDateChooser dateChooser;
     private JButton btnLuu;
     private PhieuNhapDAO pndao = new PhieuNhapDAO();
-    private Consumer<String> onMaSelected;  // callback khi chọn mã
 
-
-    public PhieuNhap_Dialog_Them(JFrame parent, Consumer<String> onMaSelected) {
+    public PhieuNhap_Dialog_Them(JFrame parent) {
         super(parent, "Thêm PhieuNhap", true);
-        this.onMaSelected = onMaSelected;
-
         
         setLayout(new BorderLayout());
         JPanel panelForm = new JPanel(new GridLayout(10, 2, 5, 5));
@@ -80,10 +76,9 @@ public class PhieuNhap_Dialog_Them extends JDialog{
                 ); 
             if (pndao.insert(pnmoi))// Lưu xuống DB 
             {          
-                if (onMaSelected != null) {
-                    onMaSelected.accept(txtMaPN.getText());  // Truyền mã ra ngoài
-                }
                 dispose();  // Đóng dialog
+                ChiTietPhieuNhapFrame frame = new ChiTietPhieuNhapFrame(txtMaPN.getText());
+                frame.setVisible(true);
                 
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm Phiếu nhập thất bại!");

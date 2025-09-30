@@ -43,7 +43,7 @@ public class ChiTietPhieuNhapDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, maPN);
+            ps.setString(1,maPN);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -51,10 +51,32 @@ public class ChiTietPhieuNhapDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DAOException("Lỗi khi lấy chi tiết phiếu nhập: " + maPN, e);
+            throw new DAOException("Lỗi khi lấy chi tiết phiếu nhập: " + sql, e);
         }
         return list;
     }
+    
+    public BigDecimal calculateTongTien(String maPN) {
+        String sql = "SELECT SUM(ChiTietPhieuNhap.GiaNhap) FROM ChiTietPhieuNhap WHERE MaPN=?";
+        BigDecimal s = BigDecimal.ZERO;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1,maPN);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) { // ✅ di chuyển con trỏ
+                    s = rs.getBigDecimal(1);
+                    return s;
+                }
+
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi lấy chi tiết phiếu nhập: " + s, e);
+        }
+        return BigDecimal.ZERO;
+    }
+    
     
     /**
      * Lấy một chi tiết phiếu nhập cụ thể dựa trên mã phiếu nhập và mã sản phẩm.

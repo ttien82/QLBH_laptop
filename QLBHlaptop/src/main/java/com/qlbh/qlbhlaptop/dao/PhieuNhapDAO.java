@@ -32,9 +32,9 @@ public class PhieuNhapDAO {
     }
 
     
-    public List<PhieuNhap> search(String keyword) { /////////////////////////
+    public List<PhieuNhap> search(String keyword) {
         List<PhieuNhap> list = new ArrayList<>();
-        String sql = "SELECT * FROM PhieuNhap WHERE TenLoaiSP LIKE ?"; // Tìm gần đúng theo tên
+        String sql = "SELECT * FROM PhieuNhap WHERE MaPN LIKE ? or MaNCC like ? or MaNV like ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -145,6 +145,22 @@ public class PhieuNhapDAO {
 
         } catch (SQLException e) {
             throw new DAOException("Lỗi khi cập nhật phiếu nhập", e);
+        }
+    }
+    
+    
+    public boolean updateTongTien(String pn, BigDecimal tongtien) {
+        String sql = "UPDATE PhieuNhap SET TongTien=? WHERE MaPN=?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setBigDecimal(1, tongtien);
+            ps.setString(2, pn);
+            
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new DAOException("Lỗi khi cập nhật tổng tiền phiếu nhập", e);
         }
     }
 
