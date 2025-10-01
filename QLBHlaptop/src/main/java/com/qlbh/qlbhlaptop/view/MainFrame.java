@@ -9,7 +9,8 @@ import com.qlbh.qlbhlaptop.controller.NhanVienController;
 import com.qlbh.qlbhlaptop.controller.PhieuNhapController;
 import com.qlbh.qlbhlaptop.controller.SanPhamController;
 import com.qlbh.qlbhlaptop.controller.TaiKhoanController;
-import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController; 
+import com.qlbh.qlbhlaptop.controller.ChiTietDonHangController;       
+import com.qlbh.qlbhlaptop.model.TaiKhoan;          
 import com.qlbh.qlbhlaptop.Ho_Tro.PhienDangNhap;
 import com.qlbh.qlbhlaptop.Ho_Tro.VaiTro;
 import com.qlbh.qlbhlaptop.model.TaiKhoan;
@@ -178,7 +179,8 @@ public class MainFrame extends JFrame {
         menuItemAbout.addActionListener(e -> JOptionPane.showMessageDialog(MainFrame.this,
                 "<html><p><b>Phần mềm Quản lý Bán hàng Laptop</b></p><p>Nhóm: 13</p>"
                         + "<p><b>Trần Nguyễn Như Ngọc: 24410204 </b></p><p>Bùi Anh Quốc: 24410218</p>"
-                        + "<p><b>Võ Văn Quý: 24410219 </b></p><p>Trần Tiến: 24410239</p></html>",
+                        + "<p><b>Võ Văn Quý: 24410219 </b></p><p>Trần Tiến: 24410239</p>"
+                        + "</b></p><p>Nguyễn Hoàng Tài: 24410221</p></html>",
                 "Giới thiệu", JOptionPane.INFORMATION_MESSAGE));
     }
     
