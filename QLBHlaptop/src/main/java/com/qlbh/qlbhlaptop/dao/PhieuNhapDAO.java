@@ -40,7 +40,8 @@ public class PhieuNhapDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, "%" + keyword + "%"); // Thêm % để tìm kiếm chứa từ khóa
-
+            ps.setString(2, "%" + keyword + "%");
+            ps.setString(3, "%" + keyword + "%");
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     list.add(mapResultSet(rs));
